@@ -373,7 +373,7 @@ namespace WordConnect
 			// The level is locked if it's game level number is greater than the next level after the last completed level
 			//return !GameController.Instance.DebugDisableLocking && levelData.GameLevelNumber > LastCompletedLevelNumber + 1;
 			return false;
-			Debug.Log("Changes");
+			//Debug.Log("Changes");
 			//chnage
 		}
 
@@ -382,7 +382,7 @@ namespace WordConnect
 			// The category is locked if the first level in the category is locked
 			return false;
 			//return categoryInfo.LevelDatas.Count > 0 && IsLevelLocked(categoryInfo.LevelDatas[0]);
-			Debug.Log("Changes");
+			
 
         }
 

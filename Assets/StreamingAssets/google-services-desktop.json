@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "940564524779",
+    "firebase_url": "https://wordpuzzlegame-ca757-default-rtdb.firebaseio.com",
+    "project_id": "wordpuzzlegame-ca757",
+    "storage_bucket": "wordpuzzlegame-ca757.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940564524779:android:61abaa86563d3db49618ae",
+        "android_client_info": {
+          "package_name": "com.portsea.WordPuzzle"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2UZlAOlkbTmBtHAxwUB2oxN8w9qd6ZRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
