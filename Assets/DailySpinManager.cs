@@ -7,6 +7,7 @@ public class DailySpinManager : MonoBehaviour
     private TimeSpan spinCooldown = TimeSpan.FromHours(24);
 
     public Button spinButton; // Assign your spin button GameObject in the Inspector
+    public Button MainspinButton;
     public GameObject cooldownMessage; // Optional: Message to show when spin is unavailable
     public GameObject SpinWheelpanel;
 
@@ -42,11 +43,13 @@ public class DailySpinManager : MonoBehaviour
         {
             // Enable the spin button and hide the cooldown message
             spinButton.interactable = true;
+            MainspinButton.interactable = true;
           //  if (cooldownMessage != null) cooldownMessage.SetActive(false);
         }
         else
         {
             // Disable the spin button and show the cooldown message
+            MainspinButton.interactable = false;
             spinButton.interactable = false;
           //  if (cooldownMessage != null) cooldownMessage.SetActive(true);
         }
