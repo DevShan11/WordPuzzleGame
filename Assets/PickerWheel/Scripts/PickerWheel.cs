@@ -124,7 +124,7 @@ namespace EasyUI.PickerWheelUI {
 
             int index = GetRandomPieceIndex () ;
             WheelPiece piece = wheelPieces [ index ] ;
-
+                Debug.Log("Piece lable is" + piece.Label);
             if (piece.Chance == 0 && nonZeroChancesIndices.Count != 0) {
                index = nonZeroChancesIndices [ Random.Range (0, nonZeroChancesIndices.Count) ] ;
                piece = wheelPieces [ index ] ;
