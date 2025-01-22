@@ -115,7 +115,7 @@ namespace WordConnect
 			}
 
 			CoinController.Instance.SetCoinsText(Coins);
-
+			PlayerPrefs.SetInt("Guessed", 0);
 			// Loads the word file to be used to check for extra words
 			LoadWordFile();
 		}
@@ -542,7 +542,10 @@ namespace WordConnect
 			{
 				// Set the word as found
 				FoundWord(CurrentActiveLevel, levelWordData);
-
+				
+				PlayerPrefs.SetInt("Guessed", PlayerPrefs.GetInt("Guessed")+1);
+				ShowSpeacial_Message(PlayerPrefs.GetInt("Guessed",0));
+				Debug.Log("Guessed"+PlayerPrefs.GetInt("Guessed", 0));
 				// Set the current selected word as correct
 				selectedLetters.SetCorrect();
 
@@ -563,7 +566,7 @@ namespace WordConnect
 			{
 				// The word is not a valid word so set the selected letters as in-correct
 				selectedLetters.SetWrong();
-
+				PlayerPrefs.SetInt("Guessed",0);
 				SoundManager.Instance.Play("word-invalid");
 			}
 		}
@@ -625,7 +628,24 @@ namespace WordConnect
 					break;
 			}
 		}
+		public void ShowSpeacial_Message(int i)
+        {
+            switch (i)
+            {
+				case 1:
+                    {
+						//if value is one show just good
+						Debug.Log("Good");
+                    }
+					break;
+				case 2: {
+						Debug.Log("Great");
+						PlayerPrefs.SetInt("Guessed", 0);
+					}
+					break;
 
+            }
+        }
 		/// <summary>
 		/// Shows all the given words on the correct word board
 		/// </summary>
