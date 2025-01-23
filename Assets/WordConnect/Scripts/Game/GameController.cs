@@ -248,7 +248,12 @@ namespace WordConnect
 				SoundManager.Instance.Play("hint-used");
 			}
 		}
-
+		public void AddCoins(int c)
+        {
+			Debug.LogWarning("Coins Added Sucessfully" +c);
+			Coins += c;
+			CoinController.Instance.SetCoinsText(Coins);
+		}
 		/// <summary>
 		/// Hows multiple hints for the current active level
 		/// </summary>
