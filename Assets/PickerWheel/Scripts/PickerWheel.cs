@@ -162,9 +162,26 @@ namespace EasyUI.PickerWheelUI {
                _isSpinning = false ;
                if (onSpinEndEvent != null)
                   onSpinEndEvent.Invoke (piece) ;
-                controller.AddCoins(piece.Amount);
+                
                onSpinStartEvent = null ; 
                onSpinEndEvent = null ;
+                controller.AddCoins(piece.Amount);
+                if (piece.Label == "Hint1")
+                {
+
+                }
+                else if (piece.Label == "Coins") { 
+                    controller.AddCoins(piece.Amount);
+
+            }
+                else if (piece.Label == "Hint2")
+                {
+
+                }
+                else if (piece.Label=="Hint3")
+                {
+
+                }
             }) ;
 
          }
