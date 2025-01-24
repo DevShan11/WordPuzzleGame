@@ -3,7 +3,7 @@ using UnityEngine.UI ;
 using DG.Tweening ;
 using UnityEngine.Events ;
 using System.Collections.Generic ;
-
+using WordConnect;
 namespace EasyUI.PickerWheelUI {
 
    public class PickerWheel : MonoBehaviour {
@@ -11,7 +11,7 @@ namespace EasyUI.PickerWheelUI {
       [Header ("References :")]
       [SerializeField] private GameObject linePrefab ;
       [SerializeField] private Transform linesParent ;
-
+        [SerializeField] private GameController controller;
       [Space]
       [SerializeField] private Transform PickerWheelTransform ;
       [SerializeField] private Transform wheelCircle ;
@@ -33,7 +33,7 @@ namespace EasyUI.PickerWheelUI {
       [Space]
       [Header ("Picker wheel pieces :")]
       public WheelPiece[] wheelPieces ;
-
+       
       // Events
       private UnityAction onSpinStartEvent ;
       private UnityAction<WheelPiece> onSpinEndEvent ;
@@ -162,9 +162,26 @@ namespace EasyUI.PickerWheelUI {
                _isSpinning = false ;
                if (onSpinEndEvent != null)
                   onSpinEndEvent.Invoke (piece) ;
-
+                
                onSpinStartEvent = null ; 
                onSpinEndEvent = null ;
+                controller.AddCoins(piece.Amount);
+                if (piece.Label == "Hint1")
+                {
+
+                }
+                else if (piece.Label == "Coins") { 
+                    controller.AddCoins(piece.Amount);
+
+            }
+                else if (piece.Label == "Hint2")
+                {
+
+                }
+                else if (piece.Label=="Hint3")
+                {
+
+                }
             }) ;
 
          }

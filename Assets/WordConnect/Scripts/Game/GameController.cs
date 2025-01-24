@@ -248,7 +248,26 @@ namespace WordConnect
 				SoundManager.Instance.Play("hint-used");
 			}
 		}
-
+		public void AddCoins(int c)
+        {
+			//Debug.LogWarning("Coins Added Sucessfully" +c);
+			Coins += c;
+			CoinController.Instance.SetCoinsText(Coins);
+		}
+		public void SpecialAbility(int id) {
+            if (id == 0)
+            {
+				//we will add one ability here
+            }
+			else if (id == 1)
+            {
+				//we will add second ability
+            }
+            else if(id==2) {
+			//we add third ability
+			}
+		
+		}
 		/// <summary>
 		/// Hows multiple hints for the current active level
 		/// </summary>
