@@ -25,7 +25,7 @@ namespace WordConnect
 
 		#region Member Variables
 
-		public const string PlayNextAction	= "play_next";
+		public const string PlayNextAction	= "   play_next";
 		public const string BackAction		= "back";
 
 		private IEnumerator animationEnumerator;

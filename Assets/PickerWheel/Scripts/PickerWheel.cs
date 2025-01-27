@@ -71,7 +71,7 @@ namespace EasyUI.PickerWheelUI {
             Debug.LogError ("You can't set all pieces chance to zero") ;
 
 
-         SetupAudio () ;
+         //SetupAudio () ;
 
       }
 
@@ -168,7 +168,7 @@ namespace EasyUI.PickerWheelUI {
                 controller.AddCoins(piece.Amount);
                 if (piece.Label == "Hint1")
                 {
-
+                    Debug.LogWarning("There should be a rocket power");
                 }
                 else if (piece.Label == "Coins") { 
                     controller.AddCoins(piece.Amount);
@@ -176,11 +176,11 @@ namespace EasyUI.PickerWheelUI {
             }
                 else if (piece.Label == "Hint2")
                 {
-
+                    Debug.LogWarning("This should be a paper plane");
                 }
                 else if (piece.Label=="Hint3")
                 {
-
+                    Debug.LogWarning(" THIS SHOULD ONLY BE HINT");
                 }
             }) ;
 
@@ -198,7 +198,7 @@ namespace EasyUI.PickerWheelUI {
       public void OnSpinEnd (UnityAction<WheelPiece> action) {
          onSpinEndEvent = action ;
       }
-
+         
 
       private int GetRandomPieceIndex () {
          double r = rand.NextDouble () * accumulatedWeight ;

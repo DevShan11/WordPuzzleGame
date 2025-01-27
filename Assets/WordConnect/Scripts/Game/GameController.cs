@@ -391,7 +391,7 @@ namespace WordConnect
 		{
 			// The level is locked if it's game level number is greater than the next level after the last completed level
 			//return !GameController.Instance.DebugDisableLocking && levelData.GameLevelNumber > LastCompletedLevelNumber + 1;
-			return false;
+			return true;
 			//Debug.Log("Changes");
 			//chnage
 		}
@@ -399,7 +399,7 @@ namespace WordConnect
 		public bool IsCategoryLocked(CategoryInfo categoryInfo)
 		{
 			// The category is locked if the first level in the category is locked
-			return false;
+			return true;
 			//return categoryInfo.LevelDatas.Count > 0 && IsLevelLocked(categoryInfo.LevelDatas[0]);
 			
 
@@ -414,7 +414,8 @@ namespace WordConnect
 		public bool IsLevelCompleted(LevelData levelData)
 		{
 			// Check if the levels game level number is greater than or equal to the last completed level number
-			return levelData.GameLevelNumber <= LastCompletedLevelNumber;
+			return false;
+			//return levelData.GameLevelNumber <= LastCompletedLevelNumber;
 		}
 
 		public bool IsCategoryCompleted(CategoryInfo categoryInfo)
@@ -1063,7 +1064,7 @@ namespace WordConnect
 			// Check if the level is now complete after placing the hint
 			if (IsBoardComplete(level))
 			{
-				CompleteLevel(level);
+				//CompleteLevel(level);
 			}
 		}
 

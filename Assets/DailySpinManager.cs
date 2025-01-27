@@ -49,7 +49,7 @@ public class DailySpinManager : MonoBehaviour
         else
         {
             // Disable the spin button and show the cooldown message
-            MainspinButton.interactable = false;
+            MainspinButton.interactable = false;//
             spinButton.interactable = false;
           //  if (cooldownMessage != null) cooldownMessage.SetActive(true);
         }
