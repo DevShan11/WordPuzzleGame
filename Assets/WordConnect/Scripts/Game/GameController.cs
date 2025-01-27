@@ -10,6 +10,8 @@ namespace WordConnect
 	public class GameController : SingletonComponent<GameController>, ISaveable
 	{
 		public GameObject Info03_panel;
+		public INFO_Message info_message;
+	
 
 		#region Inspector Variables
 
@@ -657,23 +659,35 @@ namespace WordConnect
 				case 1:
                     {
 						//if value is one show just good
+					
 						Debug.Log("Good");
                     }
 					break;
 				case 2: {
+						info_message.ShowLocal("Good");
 						Debug.Log("Great");
-						PlayerPrefs.SetInt("Guessed", 0);
+					
 					}
 					break;
 
                 case 3:
                     {
-
-                        Debug.Log("Great");
-                        PlayerPrefs.SetInt("Guessed", 0);
+						info_message.ShowLocal("Great");
+						Debug.Log("Great");
+                      
                     }
                     break;
-
+				case 4:
+                    {
+						info_message.ShowLocal("Fantastic");
+					}
+					break;
+				case 5:
+                    {
+						info_message.ShowLocal("Spectacular");
+						PlayerPrefs.SetInt("Guessed", 0);
+					}
+					break;
             }
         }
 		/// <summary>
@@ -1013,6 +1027,7 @@ namespace WordConnect
 		/// <summary>
 		/// Sets a letter as shown and shows it on the WordBoard
 		/// </summary>
+		ActiveLevel current_level ;
 		private void ShowLetterForHint(ActiveLevel level, WordData levelWordData, int letterIndex)
 		{
 			// Set the hint index as used
@@ -1074,10 +1089,18 @@ namespace WordConnect
 			// Check if the level is now complete after placing the hint
 			if (IsBoardComplete(level))
 			{
-				CompleteLevel(level);
+				current_level = level;
+				info_message.Show_Message();
+				Invoke(nameof(callCompletion), 1.5f);
+				//CompleteLevel(level);
 			}
 		}
-
+		public void callCompletion()
+		{
+			PlayerPrefs.SetInt("Guessed", 0);
+			info_message.Disable_Message();
+			CompleteLevel(current_level);
+        }
 		/// <summary>
 		/// Completes the given level
 		/// </summary>
@@ -1174,7 +1197,7 @@ namespace WordConnect
 		private IEnumerator ShowLevelCompletePopup(object[] popupInData)
 		{
 			// Wait for the word that was just found to show on the board before showing the complete popup
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(1f);
 
 			PopupManager.Instance.Show("level_complete", popupInData, OnLevelCompletePopupClosed);
 		}

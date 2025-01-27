@@ -10,7 +10,7 @@ namespace WordConnect
 	public class UIController : SingletonComponent<UIController>
 	{
 		#region Inspector Variables
-
+		public GameObject RateUsPanel;
 		[SerializeField] private Text			gamePointsText			= null;
 		[SerializeField] private GameObject		playButton				= null;
 		[SerializeField] private Text			playButtonText			= null;
@@ -59,6 +59,11 @@ namespace WordConnect
 
 		private void Start()
 		{
+            if (PlayerPrefs.GetInt("Israted", 0) == 0)
+            {
+				
+				RateUsPanel.SetActive(true);
+            }
 			packItemUIPool		= new ObjectPool(packItemUIPrefab.gameObject, 1, ObjectPool.CreatePoolContainer(transform, "pack_item_pool_container"));
 			categoryItemUIPool	= new ObjectPool(categoryItemUI.gameObject, 1, ObjectPool.CreatePoolContainer(transform, "category_item_pool_container"));
 			levelItemUIPool		= new ObjectPool(levelItemUIPrefab.gameObject, 1, ObjectPool.CreatePoolContainer(transform, "level_item_pool_container"));
