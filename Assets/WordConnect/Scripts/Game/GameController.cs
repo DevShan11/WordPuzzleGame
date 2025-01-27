@@ -9,6 +9,8 @@ namespace WordConnect
 {
 	public class GameController : SingletonComponent<GameController>, ISaveable
 	{
+		public GameObject Info03_panel;
+
 		#region Inspector Variables
 
 		[SerializeField] private WordBoardGrid		wordBoardGrid		= null;
@@ -81,6 +83,7 @@ namespace WordConnect
 
 		protected override void Awake()
 		{
+			
 			base.Awake();
 
 			SaveManager.Instance.Register(this);
@@ -400,7 +403,7 @@ namespace WordConnect
 		{
 			// The category is locked if the first level in the category is locked
 			return true;
-			//return categoryInfo.LevelDatas.Count > 0 && IsLevelLocked(categoryInfo.LevelDatas[0]);
+		//	return categoryInfo.LevelDatas.Count > 0 && IsLevelLocked(categoryInfo.LevelDatas[0]);
 			
 
         }
@@ -414,8 +417,7 @@ namespace WordConnect
 		public bool IsLevelCompleted(LevelData levelData)
 		{
 			// Check if the levels game level number is greater than or equal to the last completed level number
-			return false;
-			//return levelData.GameLevelNumber <= LastCompletedLevelNumber;
+			return levelData.GameLevelNumber <= LastCompletedLevelNumber;
 		}
 
 		public bool IsCategoryCompleted(CategoryInfo categoryInfo)
@@ -664,6 +666,14 @@ namespace WordConnect
 					}
 					break;
 
+                case 3:
+                    {
+
+                        Debug.Log("Great");
+                        PlayerPrefs.SetInt("Guessed", 0);
+                    }
+                    break;
+
             }
         }
 		/// <summary>
@@ -678,7 +688,7 @@ namespace WordConnect
 		}
 
 		/// <summary>
-		/// Called when a word has been found that exists in the word file but is not part of the current level
+		/// Called when a word has been found that exists in the word file but is not part of the Frrent level
 		/// </summary>
 		private void FoundExtraWord(ActiveLevel level, string word)
 		{
@@ -1064,7 +1074,7 @@ namespace WordConnect
 			// Check if the level is now complete after placing the hint
 			if (IsBoardComplete(level))
 			{
-				//CompleteLevel(level);
+				CompleteLevel(level);
 			}
 		}
 

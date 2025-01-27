@@ -7,6 +7,7 @@ namespace WordConnect
 {
 	public class LevelCompletePopup : BBG.Popup
 	{
+		int i = 0;
 		#region Inspector Variables
 
 		[SerializeField] private Image			backgroundImage			= null;
@@ -104,16 +105,20 @@ namespace WordConnect
 
 		public void OnPlayNextClicked()
 		{
-			if (animationEnumerator != null)
+			if (i < 1)
 			{
-				StopCoroutine(animationEnumerator);
+				i++;
+				if (animationEnumerator != null)
+				{
+					StopCoroutine(animationEnumerator);
 
-				animationEnumerator = null;
+					animationEnumerator = null;
+				}
+
+				CoinController.Instance.SetCoinsText(GameController.Instance.Coins);
+
+				Hide(false, new object[] { PlayNextAction });
 			}
-
-			CoinController.Instance.SetCoinsText(GameController.Instance.Coins);
-
-			Hide(false, new object[] { PlayNextAction });
 		}
 
 		public void OnBackClicked()
