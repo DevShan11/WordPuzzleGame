@@ -11,6 +11,7 @@ namespace WordConnect
 	{
 		public GameObject Info03_panel;
 		public INFO_Message info_message;
+		public TutorialController tutorial_controller;
 	
 
 		#region Inspector Variables
@@ -116,10 +117,11 @@ namespace WordConnect
 			{
 				// If no save file exists then set the starting values
 				Coins						= coinsToStart;
-				LastCompletedLevelNumber	= 0;
+				// LastCompletedLevelNumber	= 0;
 			}
+            LastCompletedLevelNumber = 0;
 
-			CoinController.Instance.SetCoinsText(Coins);
+            CoinController.Instance.SetCoinsText(Coins);
 			PlayerPrefs.SetInt("Guessed", 0);
 			// Loads the word file to be used to check for extra words
 			LoadWordFile();
@@ -159,8 +161,9 @@ namespace WordConnect
 			for (int i = 0; i < packInfos.Count; i++)
 			{
 				PackInfo packInfo = PackInfos[i];
+              
 
-				for (int j = 0; j < packInfo.categoryInfos.Count; j++)
+                for (int j = 0; j < packInfo.categoryInfos.Count; j++)
 				{
 					CategoryInfo categoryInfo = packInfo.categoryInfos[j];
 
@@ -170,11 +173,19 @@ namespace WordConnect
 					}
 
 					int levelIndex = gameLevelNumber - categoryInfo.LevelDatas[0].GameLevelNumber;
+                   
 
-					StartLevel(packInfo, categoryInfo, categoryInfo.LevelDatas[levelIndex]);
+                    StartLevel(packInfo, categoryInfo, categoryInfo.LevelDatas[levelIndex]);
 
 					return;
 				}
+
+				//// Tutorials Setups
+				if (i == 0)
+				{
+					//Tutorial
+				}
+
 			}
 		}
 
@@ -531,6 +542,15 @@ namespace WordConnect
 			// Try and get the WordData for the selected word for the current level
 			WordData levelWordData = CurrentActiveLevel.levelData.GetLevelWordData(word);
 
+			//customize--- 
+
+			if (word == "HIT")
+			{
+				tutorial_controller.TutorialStop();
+			}
+			Debug.Log(word);
+
+
 			// Check if they already found the word
 			if (CurrentActiveLevel.levelSaveData.foundWords.Contains(word))
 			{
@@ -620,6 +640,7 @@ namespace WordConnect
 				List<WordData> newFoundWords = CheckForFoundWords(level, levelWordData);
 
 				// Make sure all the newly found words are shown as found on the word board
+				//Debug.Log(newFoundWords);
 				ShowWordsOnBoard(level, newFoundWords);
 			}
 
@@ -666,6 +687,8 @@ namespace WordConnect
 				case 2: {
 						info_message.ShowLocal("Good");
 						Debug.Log("Great");
+
+						//
 					
 					}
 					break;

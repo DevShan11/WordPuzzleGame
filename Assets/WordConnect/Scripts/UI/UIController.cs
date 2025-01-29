@@ -9,8 +9,9 @@ namespace WordConnect
 {
 	public class UIController : SingletonComponent<UIController>
 	{
-		#region Inspector Variables
-		public GameObject RateUsPanel;
+        public TutorialController tutorialController;
+        #region Inspector Variables
+        public GameObject RateUsPanel;
 		[SerializeField] private Text			gamePointsText			= null;
 		[SerializeField] private GameObject		playButton				= null;
 		[SerializeField] private Text			playButtonText			= null;
@@ -129,7 +130,14 @@ namespace WordConnect
 			GameController.Instance.StartLevel(GameController.Instance.LastCompletedLevelNumber + 1);
 
 			ScreenManager.Instance.Show("game");
-		}
+
+			///Changes.....Tutorial
+			if (PlayerPrefs.GetInt("Tutorial") == 0)
+			{
+				tutorialController.PlayTutorial();
+
+			}
+        }
 
 		public void UpdatePlayerSelectingHint()
 		{

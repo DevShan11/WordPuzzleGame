@@ -10,6 +10,7 @@ namespace WordConnect
 {
 	public class LetterWheel : UIMonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 	{
+		
 		#region Classes
 
 		[System.Serializable]
@@ -96,6 +97,7 @@ namespace WordConnect
 
 		public void Initialize()
 		{
+
 			letterUIPool		= new ObjectPool(letterUIPrefab.gameObject, 3, ObjectPool.CreatePoolContainer(transform));
 			letterUIs			= new List<LetterUI>();
 			selectedLetterUIs	= new List<LetterUI>();
@@ -106,6 +108,8 @@ namespace WordConnect
 			{
 				screenspaceCamera = canvas.worldCamera;
 			}
+
+			
 		}
 
 		public void Setup(ActiveLevel level)
@@ -177,6 +181,7 @@ namespace WordConnect
 			for (int i = 0; i < characters.Length; i++)
 			{
 				LetterUI letterUI					= letterUIPool.GetObject<LetterUI>(transform);
+				Debug.Log(characters[i].ToString());
 				letterUI.letterText.text			= characters[i].ToString();
 				letterUI.letterText.color 			= normalTextColor;
 				letterUI.selectedIndicator.color	= packColor;
@@ -346,12 +351,13 @@ namespace WordConnect
 
 		private void Scramble(bool animate)
 		{
+			Debug.Log("Scramble Called");
 			// Don't scramble the letters if the letters are being selected or they are already animating
 			if (state != State.Idle || isAnimatingLetters)
 			{
 				return;
 			}
-
+			
 			List<Vector2> letterPositions = PickRandomPositionsForLetters();
 
 			if (animate)
@@ -383,15 +389,24 @@ namespace WordConnect
 					int index2 = Random.Range(0, letterPositions.Count);
 
 					// Randomly swap the letter positions
-					Swap(letterPositions, index1, index2);
-				}
+					//Customize----
+					if (PlayerPrefs.GetInt("Tutorial") == 1)
+					{
+						Swap(letterPositions, index1, index2);
+					}
+                    }
 
 				// We want atleast one letter ui to actually swap positions so an easy way to do that is check if the first letter ui
 				// will be in the same position and if so swap it with another random position
 				if (Vector2.Distance(letterPositions[0], letterUIs[0].RectT.anchoredPosition) < 1f)
 				{
-					Swap(letterPositions, 0, Random.Range(1, letterPositions.Count));
-				}
+                    //Customize----
+                    if (PlayerPrefs.GetInt("Tutorial") ==1)
+					{
+                        Swap(letterPositions, 0, Random.Range(1, letterPositions.Count));
+                    }
+
+                }
 			}
 
 			return letterPositions;
