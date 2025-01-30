@@ -8,21 +8,31 @@ public class TutorialController : MonoBehaviour
     public GameObject tutorialsLine;
     public GameObject tutorialShuffleBtn;
     public GameObject tutorialShuffleHand;
+    public GameObject tutorialHintBtn;
+    public GameObject tutorialHintHand;
     public bool isTouch;
     public bool isTutorialShow;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (PlayerPrefs.GetInt("Tutorial") >0) 
+        {
+            tutorialShuffleBtn.SetActive(true);
+            tutorialHintBtn.SetActive(true);
+            tutorialShuffleHand.SetActive(false);
+            tutorialHintHand.SetActive(false);
+}
+        else
+        {
+            tutorialShuffleBtn.SetActive(false);
+            tutorialHintBtn.SetActive(false);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
        
-
-
-        
     }
 
     public void TutorialStop()
@@ -38,20 +48,39 @@ public class TutorialController : MonoBehaviour
 
     public void PlayTutorial() 
     {
-        // pla Tutorial
-        if (!isTouch)
-        {
+        
             StartCoroutine(TuturialDelay());
             //isTutorialShow = true;
-        }
+        
          
     }
 
 
     public void ShuffleBtnTutorialPlay()
-    {
+    {   tutorialPanel.SetActive(true);
         tutorialShuffleBtn.SetActive(true);
         tutorialShuffleHand.SetActive(true);
+    }
+
+    public void HintBtnTutorialPlay()
+    {
+        tutorialPanel.SetActive(true);
+        tutorialHintBtn.SetActive(true);
+        tutorialHintHand.SetActive(true);
+    }
+
+    public void ShuffleBtnTutorialStop()
+    {
+        tutorialPanel.SetActive(false);
+        tutorialShuffleBtn.SetActive(true);
+        tutorialShuffleHand.SetActive(false);
+    }
+
+    public void HintBtnTutorialStop()
+    {
+        tutorialPanel.SetActive(false);
+        tutorialHintBtn.SetActive(true);
+        tutorialHintHand.SetActive(false);
     }
 
 

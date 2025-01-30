@@ -117,9 +117,9 @@ namespace WordConnect
 			{
 				// If no save file exists then set the starting values
 				Coins						= coinsToStart;
-				// LastCompletedLevelNumber	= 0;
+				 LastCompletedLevelNumber	= 0;
 			}
-            LastCompletedLevelNumber = 0;
+            //LastCompletedLevelNumber = 0;
 
             CoinController.Instance.SetCoinsText(Coins);
 			PlayerPrefs.SetInt("Guessed", 0);
@@ -180,11 +180,9 @@ namespace WordConnect
 					return;
 				}
 
-				//// Tutorials Setups
-				if (i == 0)
-				{
-					//Tutorial
-				}
+				
+
+
 
 			}
 		}
@@ -547,6 +545,7 @@ namespace WordConnect
 			if (word == "HIT")
 			{
 				tutorial_controller.TutorialStop();
+				tutorial_controller.ShuffleBtnTutorialPlay();
 			}
 			Debug.Log(word);
 
