@@ -390,7 +390,7 @@ namespace WordConnect
 
 					// Randomly swap the letter positions
 					//Customize----
-					if (PlayerPrefs.GetInt("Tutorial") == 1)
+					if (PlayerPrefs.GetInt("Tutorial")  >0)
 					{
 						Swap(letterPositions, index1, index2);
 					}
@@ -401,7 +401,7 @@ namespace WordConnect
 				if (Vector2.Distance(letterPositions[0], letterUIs[0].RectT.anchoredPosition) < 1f)
 				{
                     //Customize----
-                    if (PlayerPrefs.GetInt("Tutorial") ==1)
+                    if (PlayerPrefs.GetInt("Tutorial") >0)
 					{
                         Swap(letterPositions, 0, Random.Range(1, letterPositions.Count));
                     }

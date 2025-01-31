@@ -548,7 +548,9 @@ namespace WordConnect
 			{
 				tutorial_controller.TutorialStop();
 				tutorial_controller.ShuffleBtnTutorialPlay();
-			} }
+                    PlayerPrefs.SetInt("Tutorial", 1);
+                    PlayerPrefs.Save();
+                } }
 			Debug.Log(word);
 
 

@@ -105,8 +105,9 @@ namespace WordConnect
 
 		public void OnPlayNextClicked()
 		{
-			if (i < 1)
-			{
+			//Customize
+			/*if (i < 1)
+			{*/
 				i++;
 				if (animationEnumerator != null)
 				{
@@ -118,7 +119,7 @@ namespace WordConnect
 				CoinController.Instance.SetCoinsText(GameController.Instance.Coins);
 
 				Hide(false, new object[] { PlayNextAction });
-			}
+			/*}*/
 		}
 
 		public void OnBackClicked()

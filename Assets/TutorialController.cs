@@ -64,7 +64,7 @@ public class TutorialController : MonoBehaviour
 
     public void HintBtnTutorialPlay()
     {
-        if (PlayerPrefs.GetInt("Tutorial") ==0)
+        if (PlayerPrefs.GetInt("Tutorial") ==1)
         {
 
         tutorialPanel.SetActive(true);
@@ -86,7 +86,7 @@ public class TutorialController : MonoBehaviour
         tutorialHintBtn.SetActive(true);
         tutorialHintHand.SetActive(false);
 
-        PlayerPrefs.SetInt("Tutorial", 1);
+        PlayerPrefs.SetInt("Tutorial", 2);
         PlayerPrefs.Save();
     }
 
