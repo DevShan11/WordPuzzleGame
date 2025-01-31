@@ -10,6 +10,8 @@ namespace WordConnect
 	public class UIController : SingletonComponent<UIController>
 	{
         public TutorialController tutorialController;
+		public GameObject settingBtn;
+		public GameObject backBtn;
         #region Inspector Variables
         public GameObject RateUsPanel;
 		[SerializeField] private Text			gamePointsText			= null;
@@ -127,6 +129,9 @@ namespace WordConnect
 		/// </summary>
 		public void OnMainScreenPlayClicked()
 		{
+			/*settingBtn.SetActive(false);
+			backBtn.SetActive(true);*/
+			HideSettingButtons();
 			GameController.Instance.StartLevel(GameController.Instance.LastCompletedLevelNumber + 1);
 
 			ScreenManager.Instance.Show("game");
@@ -139,7 +144,18 @@ namespace WordConnect
 			}
         }
 
-		public void UpdatePlayerSelectingHint()
+		public void ShowSettingButtons()
+		{
+            settingBtn.SetActive(true);
+            backBtn.SetActive(false);
+        }
+        public void HideSettingButtons()
+        {
+            settingBtn.SetActive(false);
+            backBtn.SetActive(true);
+        }
+
+        public void UpdatePlayerSelectingHint()
 		{
 			bool isSelecting = GameController.Instance.PlayerSelectingHint;
 
@@ -337,4 +353,6 @@ namespace WordConnect
 
 		#endregion
 	}
+
+	
 }

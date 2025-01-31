@@ -401,11 +401,12 @@ namespace WordConnect
 			CoinController.Instance.SetCoinsText(Coins);
 		}
 
+		//Customize
 		public bool IsLevelLocked(LevelData levelData)
 		{
 			// The level is locked if it's game level number is greater than the next level after the last completed level
-			//return !GameController.Instance.DebugDisableLocking && levelData.GameLevelNumber > LastCompletedLevelNumber + 1;
-			return true;
+			return !GameController.Instance.DebugDisableLocking && levelData.GameLevelNumber > LastCompletedLevelNumber + 1;
+			//return true;
 			//Debug.Log("Changes");
 			//chnage
 		}
@@ -413,8 +414,8 @@ namespace WordConnect
 		public bool IsCategoryLocked(CategoryInfo categoryInfo)
 		{
 			// The category is locked if the first level in the category is locked
-			return true;
-		//	return categoryInfo.LevelDatas.Count > 0 && IsLevelLocked(categoryInfo.LevelDatas[0]);
+			//return true;
+			return categoryInfo.LevelDatas.Count > 0 && IsLevelLocked(categoryInfo.LevelDatas[0]);
 			
 
         }
@@ -542,11 +543,12 @@ namespace WordConnect
 
 			//customize--- 
 
+			if (PlayerPrefs.GetInt("Tutorial") == 0) { 
 			if (word == "HIT")
 			{
 				tutorial_controller.TutorialStop();
 				tutorial_controller.ShuffleBtnTutorialPlay();
-			}
+			} }
 			Debug.Log(word);
 
 

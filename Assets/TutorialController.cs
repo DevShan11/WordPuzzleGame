@@ -39,8 +39,8 @@ public class TutorialController : MonoBehaviour
     {
         tutorialPanel.SetActive(false);
         tutorialsLine.SetActive(false);
-        PlayerPrefs.SetInt("Tutorial", 1);
-        PlayerPrefs.Save();
+       /* PlayerPrefs.SetInt("Tutorial", 1);
+        PlayerPrefs.Save();*/
     }
 
 
@@ -64,9 +64,13 @@ public class TutorialController : MonoBehaviour
 
     public void HintBtnTutorialPlay()
     {
+        if (PlayerPrefs.GetInt("Tutorial") ==0)
+        {
+
         tutorialPanel.SetActive(true);
         tutorialHintBtn.SetActive(true);
         tutorialHintHand.SetActive(true);
+        }
     }
 
     public void ShuffleBtnTutorialStop()
@@ -81,6 +85,9 @@ public class TutorialController : MonoBehaviour
         tutorialPanel.SetActive(false);
         tutorialHintBtn.SetActive(true);
         tutorialHintHand.SetActive(false);
+
+        PlayerPrefs.SetInt("Tutorial", 1);
+        PlayerPrefs.Save();
     }
 
 
