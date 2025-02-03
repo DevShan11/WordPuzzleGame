@@ -121,6 +121,7 @@ namespace WordConnect
 			}
             //LastCompletedLevelNumber = 0;
 
+
             CoinController.Instance.SetCoinsText(Coins);
 			PlayerPrefs.SetInt("Guessed", 0);
 			// Loads the word file to be used to check for extra words

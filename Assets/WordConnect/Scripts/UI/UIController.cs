@@ -12,6 +12,7 @@ namespace WordConnect
         public TutorialController tutorialController;
 		public GameObject settingBtn;
 		public GameObject backBtn;
+		public GameObject giftPopUp;
         #region Inspector Variables
         public GameObject RateUsPanel;
 		[SerializeField] private Text			gamePointsText			= null;
@@ -103,6 +104,13 @@ namespace WordConnect
 			{
 				// Set the main screens play button text
 				playButtonText.text = string.Format("PLAY LEVEL {0}", GameController.Instance.LastCompletedLevelNumber + 1);
+				//Customize...
+				if (GameController.Instance.LastCompletedLevelNumber ==4)
+				{
+					giftPopUp.SetActive(true);
+				}
+
+                Debug.Log("Last Completed Level = "+ GameController.Instance.LastCompletedLevelNumber);
 			}
 
 			UpdatePackListItems();
