@@ -63,6 +63,7 @@ namespace WordConnect
 
 		private void Start()
 		{
+			PlayerPrefs.GetInt("GiftPopUp", 1);
             if (PlayerPrefs.GetInt("Israted", 0) == 0)
             {
 				
@@ -107,7 +108,13 @@ namespace WordConnect
 				//Customize...
 				if (GameController.Instance.LastCompletedLevelNumber ==4)
 				{
-					giftPopUp.SetActive(true);
+					if (PlayerPrefs.GetInt("GiftPopUp") ==0)
+					{
+						giftPopUp.SetActive(true);
+						PlayerPrefs.SetInt("GiftPopUp",1);
+						PlayerPrefs.Save();
+
+                    }
 				}
 
                 Debug.Log("Last Completed Level = "+ GameController.Instance.LastCompletedLevelNumber);
