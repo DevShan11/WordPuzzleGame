@@ -4,10 +4,12 @@ using DG.Tweening ;
 using UnityEngine.Events ;
 using System.Collections.Generic ;
 using WordConnect;
+using System.Collections;
 namespace EasyUI.PickerWheelUI {
 
    public class PickerWheel : MonoBehaviour {
 
+       public CollectingCoins collectingCoins ;
       [Header ("References :")]
       [SerializeField] private GameObject linePrefab ;
       [SerializeField] private Transform linesParent ;
@@ -58,6 +60,8 @@ namespace EasyUI.PickerWheelUI {
       private System.Random rand = new System.Random () ;
 
       private List<int> nonZeroChancesIndices = new List<int> () ;
+
+     private  WheelPiece piece;
 
       private void Start () {
          pieceAngle = 360 / wheelPieces.Length ;
@@ -123,7 +127,7 @@ namespace EasyUI.PickerWheelUI {
                onSpinStartEvent.Invoke () ;
 
             int index = GetRandomPieceIndex () ;
-            WheelPiece piece = wheelPieces [ index ] ;
+             piece = wheelPieces [ index ] ;
                 Debug.Log("Piece lable is" + piece.Label);
             if (piece.Chance == 0 && nonZeroChancesIndices.Count != 0) {
                index = nonZeroChancesIndices [ Random.Range (0, nonZeroChancesIndices.Count) ] ;
@@ -165,29 +169,44 @@ namespace EasyUI.PickerWheelUI {
                 
                onSpinStartEvent = null ; 
                onSpinEndEvent = null ;
-                controller.AddCoins(piece.Amount);
+                collectingCoins.CollectionCoins();
+                StartCoroutine(CoinDelay());
                 if (piece.Label == "Hint1")
                 {
                     Debug.LogWarning("There should be a rocket power");
+                    collectingCoins.CollectionCoins();
+                    StartCoroutine(CoinDelay());
                 }
-                else if (piece.Label == "Coins") { 
-                    controller.AddCoins(piece.Amount);
+                else if (piece.Label == "Coins") {
+                    //customize
+                    collectingCoins.CollectionCoins();
+                    StartCoroutine(CoinDelay());
+                   
 
             }
                 else if (piece.Label == "Hint2")
                 {
                     Debug.LogWarning("This should be a paper plane");
+                    collectingCoins.CollectionCoins();
+                    StartCoroutine(CoinDelay());
                 }
                 else if (piece.Label=="Hint3")
                 {
                     Debug.LogWarning(" THIS SHOULD ONLY BE HINT");
+                    collectingCoins.CollectionCoins();
+                    StartCoroutine(CoinDelay());
                 }
             }) ;
 
          }
       }
+        IEnumerator CoinDelay()
+        {
+            yield return new WaitForSeconds(3);
+            controller.AddCoins(piece.Amount);
+        }
 
-      private void FixedUpdate () {
+        private void FixedUpdate () {
 
       }
 

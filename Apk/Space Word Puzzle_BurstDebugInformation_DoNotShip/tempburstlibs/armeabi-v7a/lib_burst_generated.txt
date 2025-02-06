@@ -37,6 +37,11 @@ Library: D:\Zeeshan\SpaceWordPuzzle\Temp\BurstOutput\tempburstlibs\armeabi-v7a\l
 --assembly-defines=System.Transactions;
 --assembly-defines=System.Xml;
 --assembly-defines=System.Xml.Linq;
+--assembly-defines=UniTask.Addressables;
+--assembly-defines=UniTask;
+--assembly-defines=UniTask.DOTween;
+--assembly-defines=UniTask.Linq;
+--assembly-defines=UniTask.TextMeshPro;
 --assembly-defines=Unity.2D.Animation.Runtime;
 --assembly-defines=Unity.2D.Common.Runtime;
 --assembly-defines=Unity.2D.IK.Runtime;

@@ -481,7 +481,8 @@ namespace WordConnect
 					{
 						if (categoryInfo.levelFiles[k] == null)
 						{
-							Debug.Log("Null level file in category: " + categoryInfo.displayName);
+							
+                            Debug.Log("Null level file in category: " + categoryInfo.displayName);
 						}
 
 						LevelData levelData = new LevelData(categoryInfo.levelFiles[k].text);
