@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b5b7290119982104a8b3a9db505374f7
+guid: b2d5e39786fcb214ca06c6055003a097
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5401828788472531328
-    second: block-whiteB_0
+      213: -3701399447172545836
+    second: PlayAd_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: block-whiteB_0
+      name: PlayAd_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 200
-        height: 210
+        width: 79
+        height: 62
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,8 +127,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 086bd954659d805b0800000000000000
-      internalID: -5401828788472531328
+      spriteID: 4d2047b40dcf1acc0800000000000000
+      internalID: -3701399447172545836
       vertices: []
       indices: 
       edges: []
@@ -143,8 +143,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      block-whiteB_0: -5401828788472531328
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

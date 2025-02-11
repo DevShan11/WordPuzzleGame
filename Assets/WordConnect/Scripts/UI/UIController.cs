@@ -104,7 +104,7 @@ namespace WordConnect
 			if (!GameController.Instance.IsLastLevelInGameCompleted())
 			{
 				// Set the main screens play button text
-				playButtonText.text = string.Format("PLAY LEVEL {0}", GameController.Instance.LastCompletedLevelNumber + 1);
+				playButtonText.text = string.Format("LEVEL {0}", GameController.Instance.LastCompletedLevelNumber + 1);
 				//Customize...
 				if (GameController.Instance.LastCompletedLevelNumber ==4)
 				{

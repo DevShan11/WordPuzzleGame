@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b5b7290119982104a8b3a9db505374f7
+guid: 527a078ff05e635429c909f3648ea60f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5401828788472531328
-    second: block-whiteB_0
+      213: -7831192500221002132
+    second: WatchBtn_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: block-whiteB_0
+      name: WatchBtn_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 200
-        height: 210
+        width: 373
+        height: 120
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,8 +127,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 086bd954659d805b0800000000000000
-      internalID: -5401828788472531328
+      spriteID: c6ebf9899e3025390800000000000000
+      internalID: -7831192500221002132
       vertices: []
       indices: 
       edges: []
@@ -143,8 +143,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      block-whiteB_0: -5401828788472531328
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
