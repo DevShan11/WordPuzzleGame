@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 
 
@@ -94,6 +95,10 @@ public class CollectingCoins : MonoBehaviour
        await coins[i].transform.DOMove(endPosition.position, duration).SetEase(Ease.InBack).ToUniTask();
         ReactToCollectionCoin();
         SetCoin(coin + 1);
+        if (coins[i].transform.position == endPosition.position)
+        {
+            Destroy(coins[i]);
+        }
     }
 
     private async UniTask ReactToCollectionCoin()

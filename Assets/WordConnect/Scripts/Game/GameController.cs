@@ -431,6 +431,7 @@ namespace WordConnect
 		{
 			// Check if the levels game level number is greater than or equal to the last completed level number
 			return levelData.GameLevelNumber <= LastCompletedLevelNumber;
+			//Debug.Log("Last Completed Level NUmber" + LastCompletedLevelNumber);
 		}
 
 		public bool IsCategoryCompleted(CategoryInfo categoryInfo)
@@ -546,18 +547,46 @@ namespace WordConnect
 			//customize--- 
 
 			if (PlayerPrefs.GetInt("Tutorial") == 0) { 
-			if (word == "HIT")
+			if (word == "WON")
 			{
-				tutorial_controller.TutorialStop();
-				tutorial_controller.ShuffleBtnTutorialPlay();
+				    tutorial_controller.TutorialStop();
+					//tutorial_controller.ShuffleBtnTutorialPlay();
+					/*tutorial_controller.Shuffle_Hint_TutorialPlay();*/
+					tutorial_controller.Now_Tutorial();
                     PlayerPrefs.SetInt("Tutorial", 1);
-                    PlayerPrefs.Save();
-                } }
+                    PlayerPrefs.Save(); 
+                
+				
+			}
+
+			if (word == "NOW")
+				{
+                    tutorial_controller.NowTutorialStop();
+                }
+			
+			}
 			Debug.Log(word);
 
+			if (LastCompletedLevelNumber == 1 && PlayerPrefs.GetInt("Tutorial") == 1) 
+			{
+                tutorial_controller.Shuffle_Hint_TutorialPlay();
+            }
 
-			// Check if they already found the word
-			if (CurrentActiveLevel.levelSaveData.foundWords.Contains(word))
+            if (LastCompletedLevelNumber == 4 && PlayerPrefs.GetInt("Tutorial") == 2)
+            {
+				tutorial_controller.ExtraWordTutorialPlay();
+            }
+
+			if(LastCompletedLevelNumber >= 4)
+			{
+                tutorial_controller.tutorialExtraWordBtn.SetActive(true);
+                tutorial_controller.adRewardBtn.SetActive(true);
+
+            } 
+
+
+            // Check if they already found the word
+            if (CurrentActiveLevel.levelSaveData.foundWords.Contains(word))
 			{
 				// Set the selected letters as already found
 				selectedLetters.SetAlreadyFound();
@@ -579,6 +608,7 @@ namespace WordConnect
 				else
 				{
 					extraWords.Shake();
+				
 				}
 
 				SoundManager.Instance.Play("word-already-found");
@@ -684,14 +714,21 @@ namespace WordConnect
             {
 				case 1:
                     {
-						//if value is one show just good
-					
-						Debug.Log("Good");
+                        //if value is one show just good
+                        info_message.showInfoMessage(info_message.LocalMessage01);
+                        StartCoroutine(delay(info_message.LocalMessage01));
+
+                        Debug.Log("Good");
                     }
 					break;
 				case 2: {
-						info_message.ShowLocal("Good");
-						Debug.Log("Great");
+						//info_message.ShowLocal("Good");
+						info_message.showInfoMessage(info_message.LocalMessage02);
+						StartCoroutine(delay(info_message.LocalMessage02));
+						/*info_message.LocalMessage01.SetActive(true);
+                        Invoke(nameof(PanelSwitchOff), 1);*/
+
+                        Debug.Log("Great");
 
 						//
 					
@@ -700,24 +737,45 @@ namespace WordConnect
 
                 case 3:
                     {
-						info_message.ShowLocal("Great");
-						Debug.Log("Great");
-                      
+                        //info_message.ShowLocal("Great");
+                        /*  info_message.LocalMessage02.SetActive(true);
+                         *  
+                          Debug.Log("Great");*/
+
+                        info_message.showInfoMessage(info_message.LocalMessage03);
+                        StartCoroutine(delay(info_message.LocalMessage03));
+
                     }
                     break;
 				case 4:
                     {
-						info_message.ShowLocal("Fantastic");
-					}
+                        //info_message.ShowLocal("Fantastic");
+                        /* info_message.LocalMessage03.SetActive(true);*/
+                        info_message.showInfoMessage(info_message.LocalMessage04);
+                        StartCoroutine(delay(info_message.LocalMessage04));
+                    }
 					break;
 				case 5:
                     {
-						info_message.ShowLocal("Spectacular");
+						//info_message.ShowLocal("Spectacular");
+						/*info_message.LocalMessage04.SetActive(true);*/
+
 						PlayerPrefs.SetInt("Guessed", 0);
 					}
 					break;
-            }
-        }
+			}
+		}
+
+
+		private void PanelSwitchOff(GameObject message)
+		{
+			message.SetActive(false);
+		}
+		IEnumerator delay(GameObject message)
+		{
+			yield return new WaitForSeconds(1);
+			PanelSwitchOff(message);
+		}
 		/// <summary>
 		/// Shows all the given words on the correct word board
 		/// </summary>
@@ -834,18 +892,18 @@ namespace WordConnect
 		/// </summary>
 		private void ShowHint(ActiveLevel level)
 		{
-			WordData	hintWordData	= null;
-			int			hintIndex		= int.MaxValue;
+			WordData hintWordData = null;
+			int hintIndex = int.MaxValue;
 
 			for (int i = 0; i < level.levelData.Words.Count; i++)
 			{
-				WordData	levelWordData = level.levelData.Words[i];
-				int			wordHintIndex = GetHintIndex(level, levelWordData);
+				WordData levelWordData = level.levelData.Words[i];
+				int wordHintIndex = GetHintIndex(level, levelWordData);
 
 				if (wordHintIndex != -1 && wordHintIndex < hintIndex)
 				{
-					hintWordData	= levelWordData;
-					hintIndex		= wordHintIndex;
+					hintWordData = levelWordData;
+					hintIndex = wordHintIndex;
 				}
 			}
 
@@ -969,16 +1027,16 @@ namespace WordConnect
 			for (int i = 0; i < numberOfHints && emptyCells.Count > 0; i++)
 			{
 				// Pick a random empty cell
-				int randIndex	= Random.Range(0, emptyCells.Count);
-				int row			= emptyCells[randIndex][0];
-				int col			= emptyCells[randIndex][1];
+				int randIndex = Random.Range(0, emptyCells.Count);
+				int row = emptyCells[randIndex][0];
+				int col = emptyCells[randIndex][1];
 
 				// Remove it so it's not picked again
 				emptyCells.RemoveAt(randIndex);
 
 				// Get any WordData that this cell belongs to
-				int			letterIndex	= 0;
-				WordData	wordData	= level.levelData.GetLevelWordData(row, col, out letterIndex);
+				int letterIndex = 0;
+				WordData wordData = level.levelData.GetLevelWordData(row, col, out letterIndex);
 
 				// Finally show the letter on the grid
 				ShowLetterForHint(level, wordData, letterIndex);
@@ -1000,8 +1058,8 @@ namespace WordConnect
 				// Check if the word has not been found yet
 				if (!level.levelSaveData.foundWords.Contains(wordData.Word))
 				{
-					List<int>	unusedHintIndices	= new List<int>();
-					List<bool>	hintIndicesUsed		= level.levelSaveData.hintIndicesUsed[wordData.Word];
+					List<int> unusedHintIndices = new List<int>();
+					List<bool> hintIndicesUsed = level.levelSaveData.hintIndicesUsed[wordData.Word];
 
 					for (int j = 0; j < hintIndicesUsed.Count; j++)
 					{
@@ -1029,15 +1087,15 @@ namespace WordConnect
 			for (int i = 0; i < numberOfHints && unusedHints.Count > 0; i++)
 			{
 				// Get a random word to show a letter hint on
-				int			randWordIndex	= Random.Range(0, unusedHints.Count);
-				object[]	unusedHint		= unusedHints[randWordIndex];
+				int randWordIndex = Random.Range(0, unusedHints.Count);
+				object[] unusedHint = unusedHints[randWordIndex];
 
-				WordData	wordData			= unusedHint[0] as WordData;
-				List<int>	unusedHintIndices	= unusedHint[1] as List<int>;
+				WordData wordData = unusedHint[0] as WordData;
+				List<int> unusedHintIndices = unusedHint[1] as List<int>;
 
 				// Get a random unused index to show the hint on
-				int randHintIndex	= Random.Range(0, unusedHintIndices.Count);
-				int letterIndex		= unusedHintIndices[randHintIndex];
+				int randHintIndex = Random.Range(0, unusedHintIndices.Count);
+				int letterIndex = unusedHintIndices[randHintIndex];
 
 				// Remove the hint index
 				unusedHintIndices.RemoveAt(randHintIndex);
@@ -1055,7 +1113,7 @@ namespace WordConnect
 		/// <summary>
 		/// Sets a letter as shown and shows it on the WordBoard
 		/// </summary>
-		ActiveLevel current_level ;
+		ActiveLevel current_level;
 		private void ShowLetterForHint(ActiveLevel level, WordData levelWordData, int letterIndex)
 		{
 			// Set the hint index as used
@@ -1128,7 +1186,7 @@ namespace WordConnect
 			PlayerPrefs.SetInt("Guessed", 0);
 			info_message.Disable_Message();
 			CompleteLevel(current_level);
-        }
+		}
 		/// <summary>
 		/// Completes the given level
 		/// </summary>
@@ -1136,8 +1194,8 @@ namespace WordConnect
 		{
 			Debug.LogFormat("[GameController] Level {0} complete", level.levelData.GameLevelNumber);
 
-			bool	wasLevelCompleted	= level.levelData.GameLevelNumber <= LastCompletedLevelNumber;
-			int		numExtraWordsFound	= level.levelSaveData.extraWords;
+			bool wasLevelCompleted = level.levelData.GameLevelNumber <= LastCompletedLevelNumber;
+			int numExtraWordsFound = level.levelSaveData.extraWords;
 
 			// Set the last completed level number, make sure it's the max if the player replayed a level
 			LastCompletedLevelNumber = Mathf.Max(LastCompletedLevelNumber, level.levelData.GameLevelNumber);
@@ -1150,14 +1208,14 @@ namespace WordConnect
 			int gamePointsAwarded = 0;
 
 			// Need to animate the number of coins from/to if the player completed a category
-			int categoryCoinsAwarded	= 0;
-			int categoryCoinsAmountFrom	= 0;
-			int categoryCoinsAmountTo	= 0;
+			int categoryCoinsAwarded = 0;
+			int categoryCoinsAmountFrom = 0;
+			int categoryCoinsAmountTo = 0;
 
 			// Need to animate the number of coins from/to if the player found extra words
-			int extraWordsCoinsAwarded		= 0;
-			int extraWordsCoinsAmountFrom	= 0;
-			int extraWordsCoinsAmountTo		= 0;
+			int extraWordsCoinsAwarded = 0;
+			int extraWordsCoinsAmountFrom = 0;
+			int extraWordsCoinsAmountTo = 0;
 
 			// Check if the level has not already been completed
 			if (!wasLevelCompleted)
@@ -1172,8 +1230,8 @@ namespace WordConnect
 				if (IsCategoryCompleted(level.categoryInfo))
 				{
 					// Get the number of coins to award and the current amount of coins
-					categoryCoinsAwarded	= level.categoryInfo.coinsAwarded;
-					categoryCoinsAmountFrom	= Coins;
+					categoryCoinsAwarded = level.categoryInfo.coinsAwarded;
+					categoryCoinsAmountFrom = Coins;
 
 					// Give the coins right away but don't update the text. This makes it so it the app exits the player has been given the coins
 					// but we don't want to update teh text until the animation happens on the complete popup
@@ -1187,8 +1245,8 @@ namespace WordConnect
 				if (numExtraWordsFound > 0)
 				{
 					// Get the number of coins to award and the current amount of coins
-					extraWordsCoinsAwarded		= numExtraWordsFound;
-					extraWordsCoinsAmountFrom	= Coins;
+					extraWordsCoinsAwarded = numExtraWordsFound;
+					extraWordsCoinsAmountFrom = Coins;
 
 					// Give the coins right away but don't update the text. This makes it so it the app exits the player has been given the coins
 					// but we don't want to update teh text until the animation happens on the complete popup
@@ -1236,8 +1294,8 @@ namespace WordConnect
 		private int CalculateGamePointsAwardedForLevel(ActiveLevel level)
 		{
 			// Game points are calculated by multiplying the number of letters level by the sqrt of the level number
-			int numberOfLetters		= level.levelData.Letters.Length;
-			int sqrtOfLevelNumber	= Mathf.RoundToInt(Mathf.Sqrt(level.levelData.GameLevelNumber));
+			int numberOfLetters = level.levelData.Letters.Length;
+			int sqrtOfLevelNumber = Mathf.RoundToInt(Mathf.Sqrt(level.levelData.GameLevelNumber));
 
 			return numberOfLetters * sqrtOfLevelNumber;
 		}
@@ -1295,9 +1353,9 @@ namespace WordConnect
 		private void PlayNextLevel(ActiveLevel level)
 		{
 			// Get the next pack, category, and level index to play
-			PackInfo		packInfo;
-			CategoryInfo	categoryInfo;
-			int				levelIndex;
+			PackInfo packInfo;
+			CategoryInfo categoryInfo;
+			int levelIndex;
 
 			if (!GetNextLevel(level, out packInfo, out categoryInfo, out levelIndex))
 			{
@@ -1318,11 +1376,11 @@ namespace WordConnect
 		/// </summary>
 		private bool GetNextLevel(ActiveLevel level, out PackInfo packInfo, out CategoryInfo categoryInfo, out int levelIndex)
 		{
-			packInfo		= level.packInfo;
-			categoryInfo	= level.categoryInfo;
+			packInfo = level.packInfo;
+			categoryInfo = level.categoryInfo;
 
-			int packIndex		= packInfos.IndexOf(packInfo);
-			int categoryIndex	= packInfo.categoryInfos.IndexOf(categoryInfo);
+			int packIndex = packInfos.IndexOf(packInfo);
+			int categoryIndex = packInfo.categoryInfos.IndexOf(categoryInfo);
 
 			// The next levels index is the given levels category level number since that number starts at 1
 			levelIndex = level.levelData.CategoryLevelNumber;
@@ -1351,8 +1409,8 @@ namespace WordConnect
 			}
 
 			// Re-assign the pack and category info incase they changed
-			packInfo		= packInfos[packIndex];
-			categoryInfo	= packInfo.categoryInfos[categoryIndex];
+			packInfo = packInfos[packIndex];
+			categoryInfo = packInfo.categoryInfos[categoryIndex];
 
 			return true;
 		}
@@ -1376,8 +1434,8 @@ namespace WordConnect
 				if (!isLetterShown)
 				{
 					// Get any WordData that this cell belongs to
-					int			letterIndex	= 0;
-					WordData	wordData	= CurrentActiveLevel.levelData.GetLevelWordData(row, col, out letterIndex);
+					int letterIndex = 0;
+					WordData wordData = CurrentActiveLevel.levelData.GetLevelWordData(row, col, out letterIndex);
 
 					// Show the letter on the grid
 					ShowLetterForTargetHint(wordData, letterIndex);
@@ -1391,7 +1449,7 @@ namespace WordConnect
 
 				// Check if the word has not been found yet and the hint for the letter has not been shown yet
 				if (!CurrentActiveLevel.levelSaveData.foundWords.Contains(wordData.Word) &&
-				    !CurrentActiveLevel.levelSaveData.hintIndicesUsed[wordData.Word][col])
+					!CurrentActiveLevel.levelSaveData.hintIndicesUsed[wordData.Word][col])
 				{
 					ShowLetterForTargetHint(wordData, col);
 				}
@@ -1438,13 +1496,13 @@ namespace WordConnect
 
 			foreach (KeyValuePair<string, LevelSaveData> pair in levelSaveDatas)
 			{
-				string			levelId			= pair.Key;
-				LevelSaveData	levelSaveData	= pair.Value;
+				string levelId = pair.Key;
+				LevelSaveData levelSaveData = pair.Value;
 
 				Dictionary<string, object> levelJson = new Dictionary<string, object>();
 
-				levelJson["id"]		= levelId;
-				levelJson["data"]	= levelSaveData.Save();
+				levelJson["id"] = levelId;
+				levelJson["data"] = levelSaveData.Save();
 
 				levelJsons.Add(levelJson);
 			}
@@ -1452,12 +1510,12 @@ namespace WordConnect
 			// Create the main save data json object
 			Dictionary<string, object> json = new Dictionary<string, object>();
 
-			json["version"]						= SaveVersion;
-			json["levels"]						= levelJsons;
-			json["coins"]						= Coins;
-			json["game_points"]					= GamePoints;
-			json["num_levels_till_ad_shown"]	= NumLevelsTillAdShows;
-			json["last_completed_level_number"]	= LastCompletedLevelNumber;
+			json["version"] = SaveVersion;
+			json["levels"] = levelJsons;
+			json["coins"] = Coins;
+			json["game_points"] = GamePoints;
+			json["num_levels_till_ad_shown"] = NumLevelsTillAdShows;
+			json["last_completed_level_number"] = LastCompletedLevelNumber;
 
 			return json;
 		}
@@ -1499,10 +1557,10 @@ namespace WordConnect
 
 		private void ParseSaveData(JSONNode json)
 		{
-			GamePoints					= json["game_points"].AsInt;
-			NumLevelsTillAdShows		= json["num_levels_till_ad_shown"].AsInt;
-			Coins						= json["coins"].AsInt;
-			LastCompletedLevelNumber	= json["last_completed_level_number"].AsInt;
+			GamePoints = json["game_points"].AsInt;
+			NumLevelsTillAdShows = json["num_levels_till_ad_shown"].AsInt;
+			Coins = json["coins"].AsInt;
+			LastCompletedLevelNumber = json["last_completed_level_number"].AsInt;
 
 			// Check if the save file verion has changed
 			bool saveVersionChanged = (SaveVersion != json["version"].AsInt);
@@ -1511,8 +1569,8 @@ namespace WordConnect
 			// Load the level save data
 			foreach (JSONNode levelJson in json["levels"].AsArray)
 			{
-				string			levelId			= levelJson["id"].Value;
-				LevelSaveData	levelSaveData	= new LevelSaveData(levelJson["data"]);
+				string levelId = levelJson["id"].Value;
+				LevelSaveData levelSaveData = new LevelSaveData(levelJson["data"]);
 
 				// If the save version has changed we need to check a few things.
 				if (saveVersionChanged)
@@ -1597,9 +1655,9 @@ namespace WordConnect
 				}
 			}
 
-			packInfo		= null;
-			categoryInfo	= null;
-			levelData		= null;
+			packInfo = null;
+			categoryInfo = null;
+			levelData = null;
 
 			return false;
 		}

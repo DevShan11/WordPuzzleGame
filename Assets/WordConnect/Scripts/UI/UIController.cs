@@ -116,8 +116,12 @@ namespace WordConnect
 
                     }
 				}
+			/*	if (GameController.Instance.LastCompletedLevelNumber == 13) {
+                GameController.Instance.tutorial_controller.Shuffle_Hint_TutorialPlay();
+				}*/
 
                 Debug.Log("Last Completed Level = "+ GameController.Instance.LastCompletedLevelNumber);
+
 			}
 
 			UpdatePackListItems();
@@ -154,7 +158,7 @@ namespace WordConnect
 			///Changes.....Tutorial
 			if (PlayerPrefs.GetInt("Tutorial") == 0)
 			{
-				tutorialController.PlayTutorial();
+				tutorialController.Won_Tutorial();
 
 			}
         }

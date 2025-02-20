@@ -66,7 +66,7 @@ public class ProfileImageSelector : MonoBehaviour
         // Here we store the name of the sprite (or any unique identifier) in PlayerPrefs
         PlayerPrefs.SetString(playerPrefKey, sprite.name);
         PlayerPrefs.Save();
-        mainProfileImage.sprite = currentProfileImage.sprite;
+       // mainProfileImage.sprite = currentProfileImage.sprite;
         Debug.Log("Profile image saved.");
     }
 
@@ -83,7 +83,7 @@ public class ProfileImageSelector : MonoBehaviour
                 {
                     // Set the current profile image to the saved sprite
                     currentProfileImage.sprite = img.sprite;
-                    mainProfileImage.sprite = img.sprite;
+                  //  mainProfileImage.sprite = img.sprite;
                     selectedSprite = img.sprite;
                     
 
