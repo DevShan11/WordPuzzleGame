@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 9fa03bfc9fa5e4d43918d22274e83099
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 206309
+  packageName: Mobile Tools - Ads & IAP
+  packageVersion: 1.0.2
+  assetPath: Assets/MobileTools/Scripts/Utils/GameObjectPool.cs
+  uploadId: 626275

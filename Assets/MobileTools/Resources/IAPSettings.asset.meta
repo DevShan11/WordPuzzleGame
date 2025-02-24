@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 83d645b120735ce4ab111552e534bd2f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 206309
+  packageName: Mobile Tools - Ads & IAP
+  packageVersion: 1.0.2
+  assetPath: Assets/MobileTools/Resources/IAPSettings.asset
+  uploadId: 626275

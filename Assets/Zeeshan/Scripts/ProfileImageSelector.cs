@@ -18,7 +18,7 @@ public class ProfileImageSelector : MonoBehaviour
     void Start()
     {
         Debug.Log(PlayerPrefs.GetString("PlayerName"));
-
+        
         SetName();
 
         // Load saved profile image on startup
@@ -44,8 +44,9 @@ public class ProfileImageSelector : MonoBehaviour
     // Triggered when confirm button is clicked
     private void OnConfirm()
     {
-        PlayerPrefs.SetString("PlayerName",nameInput.text);
+        PlayerPrefs.SetString("PlayerName", nameInput.text);
         PlayerPrefs.Save();
+        FirebaseUploader.instance.SaveUserData();
         if (selectedSprite != null)
         {
             // Save the selected image permanently

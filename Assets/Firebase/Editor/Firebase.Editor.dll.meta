@@ -13,20 +13,9 @@ PluginImporter:
   defineConstraints: []
   isPreloaded: 0
   isOverridable: 0
-  isExplicitlyReferenced: 1
-  validateReferences: 0
+  isExplicitlyReferenced: 0
+  validateReferences: 1
   platformData:
-  - first:
-      : Any
-    second:
-      enabled: 0
-      settings:
-        Exclude Android: 1
-        Exclude Editor: 0
-        Exclude Linux64: 1
-        Exclude OSXUniversal: 1
-        Exclude Win: 1
-        Exclude Win64: 1
   - first:
       : Linux
     second:
@@ -52,11 +41,6 @@ PluginImporter:
       settings:
         CPU: None
   - first:
-      : Web
-    second:
-      enabled: 0
-      settings: {}
-  - first:
       : WebStreamed
     second:
       enabled: 0
@@ -66,8 +50,7 @@ PluginImporter:
     second:
       enabled: 0
       settings:
-        AndroidSharedLibraryType: Executable
-        CPU: ARMv7
+        CPU: AnyCPU
   - first:
       Any: 
     second:
@@ -105,6 +88,11 @@ PluginImporter:
       enabled: 0
       settings:
         CPU: None
+  - first:
+      WebGL: Web
+    second:
+      enabled: 0
+      settings: {}
   - first:
       Windows Store Apps: WindowsStoreApps
     second:
