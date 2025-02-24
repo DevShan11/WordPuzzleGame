@@ -146,7 +146,7 @@ namespace WordConnect
 
             }
 
-            if (GameController.Instance.LastCompletedLevelNumber == 16)
+            if (GameController.Instance.LastCompletedLevelNumber == 14)
             {
 
 				// DaillySpin Popup

@@ -96,7 +96,7 @@ namespace WordConnect
 			ScreenManager.Instance.OnShowingScreen		+= OnScreenShowing;
 			ScreenManager.Instance.OnSwitchingScreens	+= OnSwitchingScreens;
 
-			if(GameController.Instance.LastCompletedLevelNumber >= 16)
+			if(GameController.Instance.LastCompletedLevelNumber >= 14)
 			{
 				spinButton.SetActive(true);
 			}
@@ -212,6 +212,7 @@ namespace WordConnect
 		public void DailySpinPopup()
 		{
 			daillySpinPopUp.SetActive(true);
+			spinButton.SetActive(true);
 		}
 
 		#endregion
