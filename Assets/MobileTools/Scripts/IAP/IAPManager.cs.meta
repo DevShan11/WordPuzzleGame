@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: dcbe1b135c6701449b9379aa35941294
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 206309
+  packageName: Mobile Tools - Ads & IAP
+  packageVersion: 1.0.2
+  assetPath: Assets/MobileTools/Scripts/IAP/IAPManager.cs
+  uploadId: 626275
