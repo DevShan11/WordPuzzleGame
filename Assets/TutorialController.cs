@@ -48,7 +48,7 @@ public class TutorialController : MonoBehaviour
             adRewardBtn.SetActive(true);
             tutorialExtraWordBtn.SetActive(true);
         }
-        else if (PlayerPrefs.GetInt("Tutorial") >= 6)
+        else if (PlayerPrefs.GetInt("Tutorial") >= 5)
         {
             tutorialHintBtn.SetActive(true);
             tutorialShuffleBtn.SetActive(true);
@@ -57,8 +57,12 @@ public class TutorialController : MonoBehaviour
             RocketBtn.SetActive(true);
         }
       
+        
 
-
+    }
+    private void Start()
+    {
+        Debug.Log(PlayerPrefs.GetInt("Tutorial"));
     }
 
     // Update is called once per frame
@@ -147,8 +151,8 @@ public class TutorialController : MonoBehaviour
       
         RocketBtn.SetActive(true);
 
-        PlayerPrefs.SetInt("Tutorial", 6);
-        PlayerPrefs.Save();
+       /* PlayerPrefs.SetInt("Tutorial", 6);
+        PlayerPrefs.Save();*/
     }
 
     public void ExtraWordTutorialStop()
