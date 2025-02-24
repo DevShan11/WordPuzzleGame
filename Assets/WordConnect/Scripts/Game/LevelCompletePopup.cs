@@ -139,7 +139,7 @@ namespace WordConnect
 
             }
 
-            if (GameController.Instance.LastCompletedLevelNumber == 7 && PlayerPrefs.GetInt("Tutorial") == 5)
+            if (GameController.Instance.LastCompletedLevelNumber == 21 && PlayerPrefs.GetInt("Tutorial") == 2)
             {
                 tutorialController.MultiHintButton();
 
