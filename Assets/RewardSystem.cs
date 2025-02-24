@@ -25,18 +25,18 @@ public class RewardSystem : MonoBehaviour
     {
         StartCoroutine(delay());
         collectingCoins.CollectionCoins();
-        gameController.AddCoins(80);
+        //gameController.AddCoins(80);
     }
 
     IEnumerator delay()
     {
         yield return new WaitForSeconds(3);
-        gameController.AddCoins(80);
+        //gameController.AddCoins(80);
     }
 
     public void InappCoinGift(int coins)
     {
-        gameController.AddCoins(coins);
+        //gameController.AddCoins(coins);
         collectingCoins.CollectionCoins();
     }
 
@@ -45,14 +45,14 @@ public class RewardSystem : MonoBehaviour
         int temp = PlayerPrefs.GetInt("HintsCount");
         temp += 20;
         PlayerPrefs.SetInt("HintsCount", temp);
-        gameController.HintsText.text = PlayerPrefs.GetInt("HintsCount").ToString();
-        gameController.HintsText.gameObject.SetActive(true);
+        //gameController.HintsText.text = PlayerPrefs.GetInt("HintsCount").ToString();
+        //gameController.HintsText.gameObject.SetActive(true);
         int Multitemp = PlayerPrefs.GetInt("MultiHintsCount");
         Multitemp += 20;
         PlayerPrefs.SetInt("MultiHintsCount", Multitemp);
-        gameController.MultiHintsText.text = PlayerPrefs.GetInt("MultiHintsCount").ToString();
-        gameController.MultiHintsText.gameObject.SetActive(true);
-        gameController.AddCoins(5000);
+        //gameController.MultiHintsText.text = PlayerPrefs.GetInt("MultiHintsCount").ToString();
+        //gameController.MultiHintsText.gameObject.SetActive(true);
+        //gameController.AddCoins(5000);
         collectingCoins.CollectionCoins();
     }
 
@@ -63,14 +63,14 @@ public class RewardSystem : MonoBehaviour
         int temp = PlayerPrefs.GetInt("HintsCount");
         temp += 5;
         PlayerPrefs.SetInt("HintsCount", temp);
-        gameController.HintsText.text = PlayerPrefs.GetInt("HintsCount").ToString();
-        gameController.HintsText.gameObject.SetActive(true);
+        //gameController.HintsText.text = PlayerPrefs.GetInt("HintsCount").ToString();
+        //gameController.HintsText.gameObject.SetActive(true);
         int Multitemp = PlayerPrefs.GetInt("MultiHintsCount");
         Multitemp += 5;
         PlayerPrefs.SetInt("MultiHintsCount", Multitemp);
-        gameController.MultiHintsText.text = PlayerPrefs.GetInt("MultiHintsCount").ToString();
-        gameController.MultiHintsText.gameObject.SetActive(true);
-        gameController.AddCoins(1000);
+        //gameController.MultiHintsText.text = PlayerPrefs.GetInt("MultiHintsCount").ToString();
+        //gameController.MultiHintsText.gameObject.SetActive(true);
+        //gameController.AddCoins(1000);
         collectingCoins.CollectionCoins();
     }
     public void RemoveAdsOnly()

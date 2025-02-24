@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Purchasing;
 
 #if BBG_MT_IAP
 using UnityEngine.Purchasing;
@@ -13,75 +14,76 @@ using UnityEngine.Purchasing.Extension;
 
 namespace BBG.MobileTools
 {
-	public class IAPManager : SingletonComponent<IAPManager>
-	#if BBG_MT_IAP
+    public class IAPManager : SingletonComponent<IAPManager>
+#if BBG_MT_IAP
 	, IStoreListener
-	#endif
-	{
-		#region Inspector Variables
+#endif
+    {
+        #region Inspector Variables
 
-		public GameObject loadingObj;
+        public GameObject loadingObj;
 
-		#endregion
+        #endregion
 
-		#region Member Variables
+        #region Member Variables
 
-		private const string LogTag = "IAPManager";
+        private const string LogTag = "IAPManager";
 
-		#if BBG_MT_IAP
+#if BBG_MT_IAP
 		private IStoreController	storeController;
 		private IExtensionProvider 	extensionProvider;
-		#endif
+#endif
 
-		private HashSet<string> purchasedNonConsumables;
+        private HashSet<string> purchasedNonConsumables;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		/// <summary>
-		/// Callback that is invoked when the IAPManager has successfully initialized and has retrieved the list of products/prices
-		/// </summary>
-		public System.Action<bool> OnIAPInitialized { get; set; }
+        /// <summary>
+        /// Callback that is invoked when the IAPManager has successfully initialized and has retrieved the list of products/prices
+        /// </summary>
+        public System.Action<bool> OnIAPInitialized { get; set; }
 
-		/// <summary>
-		/// Callback that is invoked when a product is purchased, passes the product id that was purchased
-		/// </summary>
-		public System.Action<string> OnProductPurchased { get; set; }
+        /// <summary>
+        /// Callback that is invoked when a product is purchased, passes the product id that was purchased
+        /// </summary>
+        public System.Action<string> OnProductPurchased { get; set; }
 
-		/// <summary>
-		/// Callback that is invoked when a product purchase fails
-		/// </summary>
-		public System.Action<string> OnProductPurchasedFailed { get; set; }
+        /// <summary>
+        /// Callback that is invoked when a product purchase fails
+        /// </summary>
+        public System.Action<string> OnProductPurchasedFailed { get; set; }
 
-		/// <summary>
-		/// Returns true if IAP is initialized
-		/// </summary>
-		public bool IsInitialized
-		{
-			#if BBG_MT_IAP
+        /// <summary>
+        /// Returns true if IAP is initialized
+        /// </summary>
+        public bool IsInitialized
+        {
+#if BBG_MT_IAP
 			get { return storeController != null && extensionProvider != null; }
-			#else
-			get { return false; }
-			#endif
-		}
+#else
+            get { return false; }
+#endif
+        }
 
-		#endregion
+        #endregion
 
-		#region Unity Methods
+        #region Unity Methods
 
-		protected override void Awake()
-		{
-			base.Awake();
+        protected override void Awake()
+        {
+            base.Awake();
 
-			purchasedNonConsumables	= new HashSet<string>();
+            purchasedNonConsumables = new HashSet<string>();
 
-			LoadSave();
-		}
+            LoadSave();
+        }
 
-		private void Start()
-		{
-			#if BBG_MT_IAP
+        private void Start()
+        {
+
+#if BBG_MT_IAP
 
 			// Initialize IAP
 			ConfigurationBuilder builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
@@ -100,29 +102,29 @@ namespace BBG.MobileTools
 
 			UnityPurchasing.Initialize(this, builder);
 
-			#endif
-		}
+#endif
+        }
 
-		protected override void OnDestroy()
-		{
-			Save();
+        protected override void OnDestroy()
+        {
+            Save();
 
-			base.OnDestroy();
-		}
+            base.OnDestroy();
+        }
 
-		private void OnApplicationPause(bool pause)
-		{
-			if (pause)
-			{
-				Save();
-			}
-		}
+        private void OnApplicationPause(bool pause)
+        {
+            if (pause)
+            {
+                Save();
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Public Methods
+        #region Public Methods
 
-		#if BBG_MT_IAP
+#if BBG_MT_IAP
 
 		public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
 		{
@@ -232,14 +234,14 @@ namespace BBG.MobileTools
 			return null;
 		}
 
-		#endif
+#endif
 
-		/// <summary>
-		/// Sets the given product as purchased if it is an available product
-		/// </summary>
-		public void SetProductPurchased(string productId)
-		{
-			#if BBG_MT_IAP
+        /// <summary>
+        /// Sets the given product as purchased if it is an available product
+        /// </summary>
+        public void SetProductPurchased(string productId)
+        {
+#if BBG_MT_IAP
 
 			Product product = GetProductInformation(productId);
 
@@ -248,25 +250,25 @@ namespace BBG.MobileTools
 				SetProductPurchased(product);
 			}
 
-			#endif
-		}
+#endif
+        }
 
-		/// <summary>
-		/// Returns true if the given product id has been purchased, only for non-consumable products, consumable products will always return false.
-		/// </summary>
-		public bool IsProductPurchased(string productId)
-		{
-			return purchasedNonConsumables.Contains(productId);
-		}
+        /// <summary>
+        /// Returns true if the given product id has been purchased, only for non-consumable products, consumable products will always return false.
+        /// </summary>
+        public bool IsProductPurchased(string productId)
+        {
+            return purchasedNonConsumables.Contains(productId);
+        }
 
-		/// <summary>
-		/// Restores the purchases if platform is iOS or OSX
-		/// </summary>
-		public void RestorePurchases()
-		{
-			GameDebugManager.Log(LogTag, "RestorePurchases: Restoring purchases");
+        /// <summary>
+        /// Restores the purchases if platform is iOS or OSX
+        /// </summary>
+        public void RestorePurchases()
+        {
+            GameDebugManager.Log(LogTag, "RestorePurchases: Restoring purchases");
 
-			#if BBG_MT_IAP
+#if BBG_MT_IAP
 			if (IsInitialized)
 			{
 				if ((Application.platform == RuntimePlatform.IPhonePlayer ||
@@ -283,37 +285,42 @@ namespace BBG.MobileTools
 			{
 				GameDebugManager.LogWarning(LogTag, "RestorePurchases: IAPManager not initialized.");
 			}
-			#endif
-		}
+#endif
+        }
 
-		#endregion
+        #endregion
 
-		#region Save Methods
+        #region Save Methods
 
-		private void Save()
-		{
-			Dictionary<string, object> json = new Dictionary<string, object>();
+        private void Save()
+        {
+            Dictionary<string, object> json = new Dictionary<string, object>();
 
-			json["purchases"] = new List<string>(purchasedNonConsumables);
+            json["purchases"] = new List<string>(purchasedNonConsumables);
 
-			Utils.SaveToFile(json, Utils.SaveFolderPath, "iap");
-		}
+            Utils.SaveToFile(json, Utils.SaveFolderPath, "iap");
+        }
 
-		private void LoadSave()
-		{
-			JSONNode json = Utils.LoadSaveFile(Utils.SaveFolderPath, "iap");
+        private void LoadSave()
+        {
+            JSONNode json = Utils.LoadSaveFile(Utils.SaveFolderPath, "iap");
 
-			if (json != null)
-			{
-				JSONArray purchasesJson = json["purchases"].AsArray;
+            if (json != null)
+            {
+                JSONArray purchasesJson = json["purchases"].AsArray;
 
-				for (int i = 0; i < purchasesJson.Count; i++)
-				{
-					purchasedNonConsumables.Add(purchasesJson[i].Value);
-				}
-			}
-		}
+                for (int i = 0; i < purchasesJson.Count; i++)
+                {
+                    purchasedNonConsumables.Add(purchasesJson[i].Value);
+                }
+            }
+        }
 
-		#endregion
-	}
+        public void OnInitializeFailed(InitializationFailureReason error, string message)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        #endregion
+    }
 }
