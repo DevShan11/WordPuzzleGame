@@ -13,25 +13,52 @@ public class TutorialController : MonoBehaviour
     public GameObject tutorialShuffleBtn;
     public GameObject tutorialHintBtn;
     public GameObject adRewardBtn;
-    public GameObject MultiHintBtn;
+    public GameObject RocketBtn;
    
     public bool isTouch;
     public bool isTutorialShow;
     // Start is called before the first frame update
-    void Start()
+   public void ShowButtons()
     {
-        if (PlayerPrefs.GetInt("Tutorial") >0) 
+       
+
+        if (PlayerPrefs.GetInt("Tutorial") < 1)
         {
-            tutorialShuffleBtn.SetActive(true);
-            tutorialHintBtn.SetActive(true);
-           // tutorialExtraWordBtn.SetActive(true);
-}
-        else
-        {
-            tutorialShuffleBtn.SetActive(false);
             tutorialHintBtn.SetActive(false);
+            tutorialShuffleBtn.SetActive(false);
+            adRewardBtn.SetActive(false);
             tutorialExtraWordBtn.SetActive(false);
         }
+        else if (PlayerPrefs.GetInt("Tutorial") == 1)
+        {
+            tutorialHintBtn.SetActive(true);
+            tutorialShuffleBtn.SetActive(true);
+            adRewardBtn.SetActive(false);
+        }
+        else if (PlayerPrefs.GetInt("Tutorial") == 2)
+        {
+            tutorialHintBtn.SetActive(true);
+            tutorialShuffleBtn.SetActive(true);
+            adRewardBtn.SetActive(true);
+        }
+        else if (PlayerPrefs.GetInt("Tutorial") >= 4 )
+        {
+            tutorialHintBtn.SetActive(true);
+            tutorialShuffleBtn.SetActive(true);
+            adRewardBtn.SetActive(true);
+            tutorialExtraWordBtn.SetActive(true);
+        }
+        else if (PlayerPrefs.GetInt("Tutorial") >= 6)
+        {
+            tutorialHintBtn.SetActive(true);
+            tutorialShuffleBtn.SetActive(true);
+            adRewardBtn.SetActive(true);
+            tutorialExtraWordBtn.SetActive(true);
+            RocketBtn.SetActive(true);
+        }
+      
+
+
     }
 
     // Update is called once per frame
@@ -40,20 +67,21 @@ public class TutorialController : MonoBehaviour
        
     }
 
-    public void TutorialStop()
+    public void WonTutorialStop()
     {
         tutorialPanelBG.SetActive(false);
         tutorialsLine.SetActive(false);
+
        /* PlayerPrefs.SetInt("Tutorial", 1);
         PlayerPrefs.Save();*/
     }
 
     public void NowTutorialStop()
     {
-        tutorialPanelBG.SetActive(false);
-        nowTutorialLine.SetActive(false);
-        /* PlayerPrefs.SetInt("Tutorial", 1);
-         PlayerPrefs.Save();*/
+         tutorialPanelBG.SetActive(false);
+         nowTutorialLine.SetActive(false);
+         PlayerPrefs.SetInt("Tutorial", 2);
+         PlayerPrefs.Save();
     }
 
 
@@ -74,21 +102,17 @@ public class TutorialController : MonoBehaviour
     }
 
 
-    public void ShuffleBtnTutorialPlay()
+   /* public void ShuffleBtnTutorialPlay()
     {   tutorialPanelBG.SetActive(true);
         
         tutorialShuffleBtn.SetActive(true);
       
-    }
+    }*/
 
 
     public void Shuffle_Hint_TutorialPlay()
     {
-        //  tutorialPanel.SetActive(true);
-        tutorialPanelBG.SetActive(true);
-        shuffleHintTutorialPanel.SetActive(true);
-        tutorialHintBtn.SetActive(true);
-        tutorialShuffleBtn.SetActive(true);
+        StartCoroutine(ShuffleHintDelay() );
 
     }
     public void Shuffle_Hint_TutorialStop()
@@ -96,40 +120,46 @@ public class TutorialController : MonoBehaviour
         tutorialPanelBG.SetActive(false);
         shuffleHintTutorialPanel.SetActive(false);
         // StartCoroutine(ExtraWordTuturialDelay());
-        PlayerPrefs.SetInt("Tutorial", 2);
+        PlayerPrefs.SetInt("Tutorial", 3);
         PlayerPrefs.Save();
 
 
     }
     public void ExtraWordTutorialPlay()
     {
-        // StartCoroutine(ExtraWordTuturialDelay());
+        //StartCoroutine(ExtraWordTuturialDelay());
         tutorialPanelBG.SetActive(true);
         tutorialExtraWordBtn.SetActive(true);
         extraWordtutorial.SetActive(true);
-        adRewardBtn.SetActive(true);
-        MultiHintBtn.SetActive(true);
-
+       //adRewardBtn.SetActive(true);
+       // MultiHintBtn.SetActive(true);
     }
 
-        public void ExtraWordTutorialStop()
+    public void AdrewardButton()
     {
-        tutorialPanelBG.SetActive(false);
-        extraWordtutorial.SetActive(false);
-        PlayerPrefs.SetInt("Tutorial", 3);
+        StartCoroutine(AdrewrdButtonDelay());
+        PlayerPrefs.SetInt("Tutorial", 4);
         PlayerPrefs.Save();
     }
 
-    public void HintBtnTutorialPlay()
+    public void MultiHintButton()
     {
-        /*if (PlayerPrefs.GetInt("Tutorial") ==1)
-        {*/
+      
+        RocketBtn.SetActive(true);
 
-      //  tutorialPanelBG.SetActive(true);
-      //  tutorialHintBtn.SetActive(true);
-       // tutorialHintHand.SetActive(true);
-      //  }
+        PlayerPrefs.SetInt("Tutorial", 6);
+        PlayerPrefs.Save();
     }
+
+    public void ExtraWordTutorialStop()
+    {
+        tutorialPanelBG.SetActive(false);
+        extraWordtutorial.SetActive(false);
+       PlayerPrefs.SetInt("Tutorial", 5);
+        PlayerPrefs.Save();
+    }
+
+   
 
     public void ShuffleBtnTutorialStop()
     {
@@ -141,10 +171,7 @@ public class TutorialController : MonoBehaviour
     public void HintBtnTutorialStop()
     {
         tutorialPanelBG.SetActive(false);
-        tutorialHintBtn.SetActive(true);
-       
-
-        
+        tutorialHintBtn.SetActive(true);    
     }
 
 
@@ -164,12 +191,28 @@ public class TutorialController : MonoBehaviour
         nowTutorialLine.SetActive(true);
     }
 
-    IEnumerator ExtraWordTuturialDelay()
+   /* IEnumerator ExtraWordTuturialDelay()
     {
         yield return new WaitForSeconds(2f);
         tutorialPanelBG.SetActive(true);
         tutorialExtraWordBtn.SetActive(true);
         extraWordtutorial.SetActive(true);
+    }*/
+
+    IEnumerator ShuffleHintDelay()
+    {
+        yield return new WaitForSeconds(.5f);
+        // tutorialPanel.SetActive(true);
+        tutorialPanelBG.SetActive(true);
+        shuffleHintTutorialPanel.SetActive(true);
+        tutorialHintBtn.SetActive(true);
+        tutorialShuffleBtn.SetActive(true);
+    }
+
+    IEnumerator AdrewrdButtonDelay()
+    {
+        yield return new WaitForSeconds(.5f);
+        adRewardBtn.SetActive(true);
     }
 
 

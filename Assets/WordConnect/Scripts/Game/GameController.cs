@@ -546,43 +546,44 @@ namespace WordConnect
 
 			//customize--- 
 
-			if (PlayerPrefs.GetInt("Tutorial") == 0) { 
-			if (word == "WON")
-			{
-				    tutorial_controller.TutorialStop();
-					//tutorial_controller.ShuffleBtnTutorialPlay();
-					/*tutorial_controller.Shuffle_Hint_TutorialPlay();*/
-					tutorial_controller.Now_Tutorial();
-                    PlayerPrefs.SetInt("Tutorial", 1);
-                    PlayerPrefs.Save(); 
-                
-				
-			}
-
-			if (word == "NOW")
+			if (PlayerPrefs.GetInt("Tutorial") == 0) 
+			{ 
+			
+				if (word == "WON")
 				{
+				    tutorial_controller.WonTutorialStop();
+                    
+
+                    tutorial_controller.Now_Tutorial();
+                }
+
+
+                if (word == "NOW")
+                {
                     tutorial_controller.NowTutorialStop();
                 }
-			
-			}
-			Debug.Log(word);
 
-			if (LastCompletedLevelNumber == 1 && PlayerPrefs.GetInt("Tutorial") == 1) 
-			{
-                tutorial_controller.Shuffle_Hint_TutorialPlay();
             }
 
-            if (LastCompletedLevelNumber == 4 && PlayerPrefs.GetInt("Tutorial") == 2)
+
+            /*if (LastCompletedLevelNumber == 1 && PlayerPrefs.GetInt("Tutorial") == 2)
+            {
+				tutorial_controller.Shuffle_Hint_TutorialPlay();
+            }*/
+
+            /*if (LastCompletedLevelNumber == 2 && PlayerPrefs.GetInt("Tutorial") == 3)
+            {
+				tutorial_controller.AdrewardButton();
+            }
+
+            if (LastCompletedLevelNumber == 4 && PlayerPrefs.GetInt("Tutorial") == 4)
             {
 				tutorial_controller.ExtraWordTutorialPlay();
-            }
 
-			if(LastCompletedLevelNumber >= 4)
-			{
-                tutorial_controller.tutorialExtraWordBtn.SetActive(true);
-                tutorial_controller.adRewardBtn.SetActive(true);
+            }*/
 
-            } 
+
+            Debug.Log(word);
 
 
             // Check if they already found the word
@@ -1197,8 +1198,20 @@ namespace WordConnect
 			bool wasLevelCompleted = level.levelData.GameLevelNumber <= LastCompletedLevelNumber;
 			int numExtraWordsFound = level.levelSaveData.extraWords;
 
-			// Set the last completed level number, make sure it's the max if the player replayed a level
-			LastCompletedLevelNumber = Mathf.Max(LastCompletedLevelNumber, level.levelData.GameLevelNumber);
+
+            ///Changes....
+            ///
+            if (LastCompletedLevelNumber == 1 && PlayerPrefs.GetInt("Tutorial") == 2) 
+            {
+                tutorial_controller.Shuffle_Hint_TutorialPlay();
+            }
+            ///
+
+
+
+
+            // Set the last completed level number, make sure it's the max if the player replayed a level
+            LastCompletedLevelNumber = Mathf.Max(LastCompletedLevelNumber, level.levelData.GameLevelNumber);
 
 			// Remove the level save data since it's no longer needed (A new one will be created if the level is re-played)
 			levelSaveDatas.Remove(level.levelData.Id);

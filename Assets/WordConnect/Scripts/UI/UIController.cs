@@ -159,11 +159,29 @@ namespace WordConnect
 			if (PlayerPrefs.GetInt("Tutorial") == 0)
 			{
 				tutorialController.Won_Tutorial();
-
 			}
+
+            /*if (GameController.Instance. LastCompletedLevelNumber == 1 && PlayerPrefs.GetInt("Tutorial") == 2)
+            {
+                tutorialController.Shuffle_Hint_TutorialPlay();
+            }
+
+            if (GameController.Instance.LastCompletedLevelNumber == 2 && PlayerPrefs.GetInt("Tutorial") == 3)
+            {
+				tutorialController.AdrewardButton();
+            }
+
+            if (GameController.Instance. LastCompletedLevelNumber == 4 && PlayerPrefs.GetInt("Tutorial") == 4)
+            {
+				tutorialController.ExtraWordTutorialPlay();
+
+            }*/
+
+
+            
         }
 
-		public void ShowSettingButtons()
+        public void ShowSettingButtons()
 		{
             settingBtn.SetActive(true);
             backBtn.SetActive(false);
