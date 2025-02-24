@@ -13,6 +13,8 @@ namespace WordConnect
 		public GameObject settingBtn;
 		public GameObject backBtn;
 		public GameObject giftPopUp;
+        public GameObject daillySpinPopUp;
+        public GameObject spinButton;
         #region Inspector Variables
         public GameObject RateUsPanel;
 		[SerializeField] private Text			gamePointsText			= null;
@@ -93,6 +95,11 @@ namespace WordConnect
 
 			ScreenManager.Instance.OnShowingScreen		+= OnScreenShowing;
 			ScreenManager.Instance.OnSwitchingScreens	+= OnSwitchingScreens;
+
+			if(GameController.Instance.LastCompletedLevelNumber >= 16)
+			{
+				spinButton.SetActive(true);
+			}
 		}
 
 		#endregion
@@ -199,6 +206,12 @@ namespace WordConnect
 			hintSelectIcon.color = isSelecting ? hintSelectIconActiveColor : hintSelectIconNormalColor;
 
 			hintSelectOverlay.SetActive(isSelecting);
+		}
+
+
+		public void DailySpinPopup()
+		{
+			daillySpinPopUp.SetActive(true);
 		}
 
 		#endregion

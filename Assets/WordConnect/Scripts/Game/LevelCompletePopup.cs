@@ -145,6 +145,16 @@ namespace WordConnect
                 tutorialController.MultiHintButton();
 
             }
+
+            if (GameController.Instance.LastCompletedLevelNumber == 16)
+            {
+
+				// DaillySpin Popup
+				UIController.Instance.DailySpinPopup();
+              
+            }
+
+
         }
 
 		public void OnBackClicked()

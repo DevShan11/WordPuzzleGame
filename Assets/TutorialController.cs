@@ -28,6 +28,7 @@ public class TutorialController : MonoBehaviour
             tutorialShuffleBtn.SetActive(false);
             adRewardBtn.SetActive(false);
             tutorialExtraWordBtn.SetActive(false);
+            RocketBtn.SetActive(false);
         }
         else if (PlayerPrefs.GetInt("Tutorial") == 1)
         {
@@ -60,10 +61,7 @@ public class TutorialController : MonoBehaviour
         
 
     }
-    private void Start()
-    {
-        Debug.Log(PlayerPrefs.GetInt("Tutorial"));
-    }
+    
 
     // Update is called once per frame
     void Update()
