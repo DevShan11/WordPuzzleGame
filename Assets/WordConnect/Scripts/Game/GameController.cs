@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 using BBG;
 
 namespace WordConnect
@@ -12,11 +12,14 @@ namespace WordConnect
 		public GameObject Info03_panel;
 		public INFO_Message info_message;
 		public TutorialController tutorial_controller;
-	
+        public TextMeshProUGUI HintsText, MultiHintsText;
+        int MultiHintsCount, HintsCount;
+        public TextMeshProUGUI TopHintsText, TopMultiHintsText;
 
-		#region Inspector Variables
 
-		[SerializeField] private WordBoardGrid		wordBoardGrid		= null;
+        #region Inspector Variables
+
+        [SerializeField] private WordBoardGrid		wordBoardGrid		= null;
 		[SerializeField] private WordBoardList		wordBoardList		= null;
 		[SerializeField] private LetterWheel		letterWheel			= null;
 		[SerializeField] private SelectedLetters	selectedLetters		= null;
@@ -86,8 +89,8 @@ namespace WordConnect
 
 		protected override void Awake()
 		{
-			
-			base.Awake();
+
+            base.Awake();
 
 			SaveManager.Instance.Register(this);
 
@@ -126,7 +129,8 @@ namespace WordConnect
 			PlayerPrefs.SetInt("Guessed", 0);
 			// Loads the word file to be used to check for extra words
 			LoadWordFile();
-		}
+
+        }
 
 		private void Update()
 		{
@@ -243,26 +247,42 @@ namespace WordConnect
 		/// </summary>
 		public void ShowHint()
 		{
-			if (CurrentActiveLevel == null)
-			{
-				return;
-			}
+            if (CurrentActiveLevel == null)
+            {
+                return;
+            }
 
-			if (Coins < CoinCostPerHint)
-			{
-				PopupManager.Instance.Show("not_enough_coins");
-			}
-			else
-			{
-				Coins -= CoinCostPerHint;
+            if (Coins < CoinCostPerHint)
+            {
+                HintsCount = PlayerPrefs.GetInt("HintsCount");
+                if (HintsCount > 0)
+                {
+                    HintsText.gameObject.SetActive(true);
+                    HintsCount--;
+                    PlayerPrefs.SetInt("HintsCount", HintsCount);  // Save the updated value
+                    PlayerPrefs.Save();  // Ensure it persists
+                    HintsText.text = HintsCount.ToString();
+                    ShowHint(CurrentActiveLevel);
+                    SoundManager.Instance.Play("hint-used");
+                }
+                else
+                {
+                    HintsText.gameObject.SetActive(false);
+                    PopupManager.Instance.Show("not_enough_coins");
+                }
 
-				CoinController.Instance.SetCoinsText(Coins);
+            }
+            else
+            {
+                Coins -= CoinCostPerHint;
 
-				ShowHint(CurrentActiveLevel);
+                CoinController.Instance.SetCoinsText(Coins);
 
-				SoundManager.Instance.Play("hint-used");
-			}
-		}
+                ShowHint(CurrentActiveLevel);
+
+                SoundManager.Instance.Play("hint-used");
+            }
+        }
 		public void AddCoins(int c)
         {
 			//Debug.LogWarning("Coins Added Sucessfully" +c);
@@ -288,26 +308,43 @@ namespace WordConnect
 		/// </summary>
 		public void ShowMultiHint()
 		{
-			if (CurrentActiveLevel == null)
-			{
-				return;
-			}
+            if (CurrentActiveLevel == null)
+            {
+                return;
+            }
 
-			if (Coins < CoinCostPerMultiHint)
-			{
-				PopupManager.Instance.Show("not_enough_coins");
-			}
-			else
-			{
-				Coins -= CoinCostPerMultiHint;
+            if (Coins < CoinCostPerMultiHint)
+            {
+                MultiHintsCount = PlayerPrefs.GetInt("MultiHintsCount");
+                if (MultiHintsCount > 0)
+                {
+                    MultiHintsText.gameObject.SetActive(true);
+                    MultiHintsCount--;
+                    PlayerPrefs.SetInt("MultiHintsCount", MultiHintsCount);  // Save the updated value
+                    PlayerPrefs.Save();  // Ensure it persists
+                    MultiHintsText.text = MultiHintsCount.ToString();
 
-				CoinController.Instance.SetCoinsText(Coins);
+                    ShowMultiHint(CurrentActiveLevel, numToShowForMultiHint);
+                    SoundManager.Instance.Play("hint-used");
+                }
+                else
+                {
+                    MultiHintsText.gameObject.SetActive(false);
+                    PopupManager.Instance.Show("not_enough_coins");
+                }
 
-				ShowMultiHint(CurrentActiveLevel, numToShowForMultiHint);
+            }
+            else
+            {
+                Coins -= CoinCostPerMultiHint;
 
-				SoundManager.Instance.Play("hint-used");
-			}
-		}
+                CoinController.Instance.SetCoinsText(Coins);
+
+                ShowMultiHint(CurrentActiveLevel, numToShowForMultiHint);
+
+                SoundManager.Instance.Play("hint-used");
+            }
+        }
 
 		/// <summary>
 		/// Starts the mode for the user selecting what letter they want to show
