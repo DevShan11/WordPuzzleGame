@@ -155,15 +155,15 @@ namespace WordConnect
 		/// </summary>
 		public void OnMainScreenPlayClicked()
 		{
-			/*settingBtn.SetActive(false);
-			backBtn.SetActive(true);*/
-			HideSettingButtons();
+			
+			
 			GameController.Instance.StartLevel(GameController.Instance.LastCompletedLevelNumber + 1);
 
 			ScreenManager.Instance.Show("game");
+            HideSettingButtons();
 
-			///Changes.....Tutorial
-			if (PlayerPrefs.GetInt("Tutorial") == 0)
+            ///Changes.....Tutorial
+            if (PlayerPrefs.GetInt("Tutorial") == 0)
 			{
 				tutorialController.Won_Tutorial();
 			}
