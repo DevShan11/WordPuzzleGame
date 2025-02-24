@@ -28,6 +28,7 @@ public class TutorialController : MonoBehaviour
             tutorialShuffleBtn.SetActive(false);
             adRewardBtn.SetActive(false);
             tutorialExtraWordBtn.SetActive(false);
+            RocketBtn.SetActive(false);
         }
         else if (PlayerPrefs.GetInt("Tutorial") == 1)
         {
@@ -41,7 +42,7 @@ public class TutorialController : MonoBehaviour
             tutorialShuffleBtn.SetActive(true);
             adRewardBtn.SetActive(true);
         }
-        else if (PlayerPrefs.GetInt("Tutorial") >= 4 )
+        else if (PlayerPrefs.GetInt("Tutorial") >= 4 && PlayerPrefs.GetInt("Tutorial") < 5 )
         {
             tutorialHintBtn.SetActive(true);
             tutorialShuffleBtn.SetActive(true);
@@ -60,10 +61,7 @@ public class TutorialController : MonoBehaviour
         
 
     }
-    private void Start()
-    {
-        Debug.Log(PlayerPrefs.GetInt("Tutorial"));
-    }
+    
 
     // Update is called once per frame
     void Update()
@@ -124,8 +122,12 @@ public class TutorialController : MonoBehaviour
         tutorialPanelBG.SetActive(false);
         shuffleHintTutorialPanel.SetActive(false);
         // StartCoroutine(ExtraWordTuturialDelay());
-        PlayerPrefs.SetInt("Tutorial", 3);
-        PlayerPrefs.Save();
+        if (PlayerPrefs.GetInt("Tutorial") <3)
+        {
+            PlayerPrefs.SetInt("Tutorial", 3);
+            PlayerPrefs.Save();
+        }
+        
 
 
     }

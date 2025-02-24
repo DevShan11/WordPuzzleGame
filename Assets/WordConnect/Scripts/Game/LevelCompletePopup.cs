@@ -139,11 +139,22 @@ namespace WordConnect
 
             }
 
-            if (GameController.Instance.LastCompletedLevelNumber == 21 && PlayerPrefs.GetInt("Tutorial") == 2)
+            if (GameController.Instance.LastCompletedLevelNumber == 7 && PlayerPrefs.GetInt("Tutorial") == 5)
             {
+
                 tutorialController.MultiHintButton();
 
             }
+
+            if (GameController.Instance.LastCompletedLevelNumber == 16)
+            {
+
+				// DaillySpin Popup
+				UIController.Instance.DailySpinPopup();
+              
+            }
+
+
         }
 
 		public void OnBackClicked()
