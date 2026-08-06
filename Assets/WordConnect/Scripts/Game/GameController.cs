@@ -2,16 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 using BBG;
 
 namespace WordConnect
 {
 	public class GameController : SingletonComponent<GameController>, ISaveable
 	{
-		#region Inspector Variables
+		public GameObject Info03_panel;
+		public INFO_Message info_message;
+		public TutorialController tutorial_controller;
+        public TextMeshProUGUI HintsText, MultiHintsText;
+        int MultiHintsCount, HintsCount;
+        public TextMeshProUGUI TopHintsText, TopMultiHintsText;
 
-		[SerializeField] private WordBoardGrid		wordBoardGrid		= null;
+
+        #region Inspector Variables
+
+        [SerializeField] private WordBoardGrid		wordBoardGrid		= null;
 		[SerializeField] private WordBoardList		wordBoardList		= null;
 		[SerializeField] private LetterWheel		letterWheel			= null;
 		[SerializeField] private SelectedLetters	selectedLetters		= null;
@@ -81,7 +89,8 @@ namespace WordConnect
 
 		protected override void Awake()
 		{
-			base.Awake();
+
+            base.Awake();
 
 			SaveManager.Instance.Register(this);
 
@@ -111,14 +120,17 @@ namespace WordConnect
 			{
 				// If no save file exists then set the starting values
 				Coins						= coinsToStart;
-				LastCompletedLevelNumber	= 0;
+				 LastCompletedLevelNumber	= 0;
 			}
+            //LastCompletedLevelNumber = 0;
 
-			CoinController.Instance.SetCoinsText(Coins);
 
+            CoinController.Instance.SetCoinsText(Coins);
+			PlayerPrefs.SetInt("Guessed", 0);
 			// Loads the word file to be used to check for extra words
 			LoadWordFile();
-		}
+
+        }
 
 		private void Update()
 		{
@@ -154,8 +166,9 @@ namespace WordConnect
 			for (int i = 0; i < packInfos.Count; i++)
 			{
 				PackInfo packInfo = PackInfos[i];
+              
 
-				for (int j = 0; j < packInfo.categoryInfos.Count; j++)
+                for (int j = 0; j < packInfo.categoryInfos.Count; j++)
 				{
 					CategoryInfo categoryInfo = packInfo.categoryInfos[j];
 
@@ -165,11 +178,17 @@ namespace WordConnect
 					}
 
 					int levelIndex = gameLevelNumber - categoryInfo.LevelDatas[0].GameLevelNumber;
+                   
 
-					StartLevel(packInfo, categoryInfo, categoryInfo.LevelDatas[levelIndex]);
+                    StartLevel(packInfo, categoryInfo, categoryInfo.LevelDatas[levelIndex]);
 
 					return;
 				}
+
+				
+
+
+
 			}
 		}
 
@@ -228,52 +247,104 @@ namespace WordConnect
 		/// </summary>
 		public void ShowHint()
 		{
-			if (CurrentActiveLevel == null)
-			{
-				return;
-			}
+            if (CurrentActiveLevel == null)
+            {
+                return;
+            }
 
-			if (Coins < CoinCostPerHint)
-			{
-				PopupManager.Instance.Show("not_enough_coins");
-			}
-			else
-			{
-				Coins -= CoinCostPerHint;
+            if (Coins < CoinCostPerHint)
+            {
+                HintsCount = PlayerPrefs.GetInt("HintsCount");
+                if (HintsCount > 0)
+                {
+                    HintsText.gameObject.SetActive(true);
+                    HintsCount--;
+                    PlayerPrefs.SetInt("HintsCount", HintsCount);  // Save the updated value
+                    PlayerPrefs.Save();  // Ensure it persists
+                    HintsText.text = HintsCount.ToString();
+                    ShowHint(CurrentActiveLevel);
+                    SoundManager.Instance.Play("hint-used");
+                }
+                else
+                {
+                    HintsText.gameObject.SetActive(false);
+                    PopupManager.Instance.Show("not_enough_coins");
+                }
 
-				CoinController.Instance.SetCoinsText(Coins);
+            }
+            else
+            {
+                Coins -= CoinCostPerHint;
 
-				ShowHint(CurrentActiveLevel);
+                CoinController.Instance.SetCoinsText(Coins);
 
-				SoundManager.Instance.Play("hint-used");
-			}
+                ShowHint(CurrentActiveLevel);
+
+                SoundManager.Instance.Play("hint-used");
+            }
+        }
+		public void AddCoins(int c)
+        {
+			//Debug.LogWarning("Coins Added Sucessfully" +c);
+			Coins += c;
+			CoinController.Instance.SetCoinsText(Coins);
 		}
-
+		public void SpecialAbility(int id) {
+            if (id == 0)
+            {
+				//we will add one ability here
+            }
+			else if (id == 1)
+            {
+				//we will add second ability
+            }
+            else if(id==2) {
+			//we add third ability
+			}
+		
+		}
 		/// <summary>
 		/// Hows multiple hints for the current active level
 		/// </summary>
 		public void ShowMultiHint()
 		{
-			if (CurrentActiveLevel == null)
-			{
-				return;
-			}
+            if (CurrentActiveLevel == null)
+            {
+                return;
+            }
 
-			if (Coins < CoinCostPerMultiHint)
-			{
-				PopupManager.Instance.Show("not_enough_coins");
-			}
-			else
-			{
-				Coins -= CoinCostPerMultiHint;
+            if (Coins < CoinCostPerMultiHint)
+            {
+                MultiHintsCount = PlayerPrefs.GetInt("MultiHintsCount");
+                if (MultiHintsCount > 0)
+                {
+                    MultiHintsText.gameObject.SetActive(true);
+                    MultiHintsCount--;
+                    PlayerPrefs.SetInt("MultiHintsCount", MultiHintsCount);  // Save the updated value
+                    PlayerPrefs.Save();  // Ensure it persists
+                    MultiHintsText.text = MultiHintsCount.ToString();
 
-				CoinController.Instance.SetCoinsText(Coins);
+                    ShowMultiHint(CurrentActiveLevel, numToShowForMultiHint);
+                    SoundManager.Instance.Play("hint-used");
+                }
+                else
+                {
+                    MultiHintsText.gameObject.SetActive(false);
+                    PopupManager.Instance.Show("not_enough_coins");
+                }
 
-				ShowMultiHint(CurrentActiveLevel, numToShowForMultiHint);
+            }
+            else
+            {
+                Coins -= CoinCostPerMultiHint;
 
-				SoundManager.Instance.Play("hint-used");
-			}
-		}
+                CoinController.Instance.SetCoinsText(Coins);
+
+                ShowMultiHint(CurrentActiveLevel, numToShowForMultiHint);
+
+                SoundManager.Instance.Play("hint-used");
+            }
+        }
 
 		/// <summary>
 		/// Starts the mode for the user selecting what letter they want to show
@@ -368,21 +439,22 @@ namespace WordConnect
 			CoinController.Instance.SetCoinsText(Coins);
 		}
 
+		//Customize
 		public bool IsLevelLocked(LevelData levelData)
 		{
 			// The level is locked if it's game level number is greater than the next level after the last completed level
-			//return !GameController.Instance.DebugDisableLocking && levelData.GameLevelNumber > LastCompletedLevelNumber + 1;
-			return false;
-			Debug.Log("Changes");
+			return !GameController.Instance.DebugDisableLocking && levelData.GameLevelNumber > LastCompletedLevelNumber + 1;
+			//return true;
+			//Debug.Log("Changes");
 			//chnage
 		}
 
 		public bool IsCategoryLocked(CategoryInfo categoryInfo)
 		{
 			// The category is locked if the first level in the category is locked
-			return false;
-			//return categoryInfo.LevelDatas.Count > 0 && IsLevelLocked(categoryInfo.LevelDatas[0]);
-			Debug.Log("Changes");
+			//return true;
+			return categoryInfo.LevelDatas.Count > 0 && IsLevelLocked(categoryInfo.LevelDatas[0]);
+			
 
         }
 
@@ -396,6 +468,7 @@ namespace WordConnect
 		{
 			// Check if the levels game level number is greater than or equal to the last completed level number
 			return levelData.GameLevelNumber <= LastCompletedLevelNumber;
+			//Debug.Log("Last Completed Level NUmber" + LastCompletedLevelNumber);
 		}
 
 		public bool IsCategoryCompleted(CategoryInfo categoryInfo)
@@ -446,7 +519,8 @@ namespace WordConnect
 					{
 						if (categoryInfo.levelFiles[k] == null)
 						{
-							Debug.Log("Null level file in category: " + categoryInfo.displayName);
+							
+                            Debug.Log("Null level file in category: " + categoryInfo.displayName);
 						}
 
 						LevelData levelData = new LevelData(categoryInfo.levelFiles[k].text);
@@ -507,8 +581,50 @@ namespace WordConnect
 			// Try and get the WordData for the selected word for the current level
 			WordData levelWordData = CurrentActiveLevel.levelData.GetLevelWordData(word);
 
-			// Check if they already found the word
-			if (CurrentActiveLevel.levelSaveData.foundWords.Contains(word))
+			//customize--- 
+
+			if (PlayerPrefs.GetInt("Tutorial") == 0) 
+			{ 
+			
+				if (word == "WON")
+				{
+				    tutorial_controller.WonTutorialStop();
+                    
+
+                    tutorial_controller.Now_Tutorial();
+                }
+
+
+                if (word == "NOW")
+                {
+                    tutorial_controller.NowTutorialStop();
+                }
+
+            }
+
+
+            /*if (LastCompletedLevelNumber == 1 && PlayerPrefs.GetInt("Tutorial") == 2)
+            {
+				tutorial_controller.Shuffle_Hint_TutorialPlay();
+            }*/
+
+            /*if (LastCompletedLevelNumber == 2 && PlayerPrefs.GetInt("Tutorial") == 3)
+            {
+				tutorial_controller.AdrewardButton();
+            }
+
+            if (LastCompletedLevelNumber == 4 && PlayerPrefs.GetInt("Tutorial") == 4)
+            {
+				tutorial_controller.ExtraWordTutorialPlay();
+
+            }*/
+
+
+            Debug.Log(word);
+
+
+            // Check if they already found the word
+            if (CurrentActiveLevel.levelSaveData.foundWords.Contains(word))
 			{
 				// Set the selected letters as already found
 				selectedLetters.SetAlreadyFound();
@@ -530,6 +646,7 @@ namespace WordConnect
 				else
 				{
 					extraWords.Shake();
+				
 				}
 
 				SoundManager.Instance.Play("word-already-found");
@@ -542,7 +659,10 @@ namespace WordConnect
 			{
 				// Set the word as found
 				FoundWord(CurrentActiveLevel, levelWordData);
-
+				
+				PlayerPrefs.SetInt("Guessed", PlayerPrefs.GetInt("Guessed")+1);
+				ShowSpeacial_Message(PlayerPrefs.GetInt("Guessed",0));
+				Debug.Log("Guessed"+PlayerPrefs.GetInt("Guessed", 0));
 				// Set the current selected word as correct
 				selectedLetters.SetCorrect();
 
@@ -563,7 +683,7 @@ namespace WordConnect
 			{
 				// The word is not a valid word so set the selected letters as in-correct
 				selectedLetters.SetWrong();
-
+				PlayerPrefs.SetInt("Guessed",0);
 				SoundManager.Instance.Play("word-invalid");
 			}
 		}
@@ -593,6 +713,7 @@ namespace WordConnect
 				List<WordData> newFoundWords = CheckForFoundWords(level, levelWordData);
 
 				// Make sure all the newly found words are shown as found on the word board
+				//Debug.Log(newFoundWords);
 				ShowWordsOnBoard(level, newFoundWords);
 			}
 
@@ -625,7 +746,74 @@ namespace WordConnect
 					break;
 			}
 		}
+		public void ShowSpeacial_Message(int i)
+        {
+            switch (i)
+            {
+				case 1:
+                    {
+                        //if value is one show just good
+                        info_message.showInfoMessage(info_message.LocalMessage01);
+                        StartCoroutine(delay(info_message.LocalMessage01));
 
+                        Debug.Log("Good");
+                    }
+					break;
+				case 2: {
+						//info_message.ShowLocal("Good");
+						info_message.showInfoMessage(info_message.LocalMessage02);
+						StartCoroutine(delay(info_message.LocalMessage02));
+						/*info_message.LocalMessage01.SetActive(true);
+                        Invoke(nameof(PanelSwitchOff), 1);*/
+
+                        Debug.Log("Great");
+
+						//
+					
+					}
+					break;
+
+                case 3:
+                    {
+                        //info_message.ShowLocal("Great");
+                        /*  info_message.LocalMessage02.SetActive(true);
+                         *  
+                          Debug.Log("Great");*/
+
+                        info_message.showInfoMessage(info_message.LocalMessage03);
+                        StartCoroutine(delay(info_message.LocalMessage03));
+
+                    }
+                    break;
+				case 4:
+                    {
+                        //info_message.ShowLocal("Fantastic");
+                        /* info_message.LocalMessage03.SetActive(true);*/
+                        info_message.showInfoMessage(info_message.LocalMessage04);
+                        StartCoroutine(delay(info_message.LocalMessage04));
+                    }
+					break;
+				case 5:
+                    {
+						//info_message.ShowLocal("Spectacular");
+						/*info_message.LocalMessage04.SetActive(true);*/
+
+						PlayerPrefs.SetInt("Guessed", 0);
+					}
+					break;
+			}
+		}
+
+
+		private void PanelSwitchOff(GameObject message)
+		{
+			message.SetActive(false);
+		}
+		IEnumerator delay(GameObject message)
+		{
+			yield return new WaitForSeconds(1);
+			PanelSwitchOff(message);
+		}
 		/// <summary>
 		/// Shows all the given words on the correct word board
 		/// </summary>
@@ -638,7 +826,7 @@ namespace WordConnect
 		}
 
 		/// <summary>
-		/// Called when a word has been found that exists in the word file but is not part of the current level
+		/// Called when a word has been found that exists in the word file but is not part of the Frrent level
 		/// </summary>
 		private void FoundExtraWord(ActiveLevel level, string word)
 		{
@@ -742,18 +930,18 @@ namespace WordConnect
 		/// </summary>
 		private void ShowHint(ActiveLevel level)
 		{
-			WordData	hintWordData	= null;
-			int			hintIndex		= int.MaxValue;
+			WordData hintWordData = null;
+			int hintIndex = int.MaxValue;
 
 			for (int i = 0; i < level.levelData.Words.Count; i++)
 			{
-				WordData	levelWordData = level.levelData.Words[i];
-				int			wordHintIndex = GetHintIndex(level, levelWordData);
+				WordData levelWordData = level.levelData.Words[i];
+				int wordHintIndex = GetHintIndex(level, levelWordData);
 
 				if (wordHintIndex != -1 && wordHintIndex < hintIndex)
 				{
-					hintWordData	= levelWordData;
-					hintIndex		= wordHintIndex;
+					hintWordData = levelWordData;
+					hintIndex = wordHintIndex;
 				}
 			}
 
@@ -877,16 +1065,16 @@ namespace WordConnect
 			for (int i = 0; i < numberOfHints && emptyCells.Count > 0; i++)
 			{
 				// Pick a random empty cell
-				int randIndex	= Random.Range(0, emptyCells.Count);
-				int row			= emptyCells[randIndex][0];
-				int col			= emptyCells[randIndex][1];
+				int randIndex = Random.Range(0, emptyCells.Count);
+				int row = emptyCells[randIndex][0];
+				int col = emptyCells[randIndex][1];
 
 				// Remove it so it's not picked again
 				emptyCells.RemoveAt(randIndex);
 
 				// Get any WordData that this cell belongs to
-				int			letterIndex	= 0;
-				WordData	wordData	= level.levelData.GetLevelWordData(row, col, out letterIndex);
+				int letterIndex = 0;
+				WordData wordData = level.levelData.GetLevelWordData(row, col, out letterIndex);
 
 				// Finally show the letter on the grid
 				ShowLetterForHint(level, wordData, letterIndex);
@@ -908,8 +1096,8 @@ namespace WordConnect
 				// Check if the word has not been found yet
 				if (!level.levelSaveData.foundWords.Contains(wordData.Word))
 				{
-					List<int>	unusedHintIndices	= new List<int>();
-					List<bool>	hintIndicesUsed		= level.levelSaveData.hintIndicesUsed[wordData.Word];
+					List<int> unusedHintIndices = new List<int>();
+					List<bool> hintIndicesUsed = level.levelSaveData.hintIndicesUsed[wordData.Word];
 
 					for (int j = 0; j < hintIndicesUsed.Count; j++)
 					{
@@ -937,15 +1125,15 @@ namespace WordConnect
 			for (int i = 0; i < numberOfHints && unusedHints.Count > 0; i++)
 			{
 				// Get a random word to show a letter hint on
-				int			randWordIndex	= Random.Range(0, unusedHints.Count);
-				object[]	unusedHint		= unusedHints[randWordIndex];
+				int randWordIndex = Random.Range(0, unusedHints.Count);
+				object[] unusedHint = unusedHints[randWordIndex];
 
-				WordData	wordData			= unusedHint[0] as WordData;
-				List<int>	unusedHintIndices	= unusedHint[1] as List<int>;
+				WordData wordData = unusedHint[0] as WordData;
+				List<int> unusedHintIndices = unusedHint[1] as List<int>;
 
 				// Get a random unused index to show the hint on
-				int randHintIndex	= Random.Range(0, unusedHintIndices.Count);
-				int letterIndex		= unusedHintIndices[randHintIndex];
+				int randHintIndex = Random.Range(0, unusedHintIndices.Count);
+				int letterIndex = unusedHintIndices[randHintIndex];
 
 				// Remove the hint index
 				unusedHintIndices.RemoveAt(randHintIndex);
@@ -963,6 +1151,7 @@ namespace WordConnect
 		/// <summary>
 		/// Sets a letter as shown and shows it on the WordBoard
 		/// </summary>
+		ActiveLevel current_level;
 		private void ShowLetterForHint(ActiveLevel level, WordData levelWordData, int letterIndex)
 		{
 			// Set the hint index as used
@@ -1024,10 +1213,18 @@ namespace WordConnect
 			// Check if the level is now complete after placing the hint
 			if (IsBoardComplete(level))
 			{
-				CompleteLevel(level);
+				current_level = level;
+				info_message.Show_Message();
+				Invoke(nameof(callCompletion), 1.5f);
+				//CompleteLevel(level);
 			}
 		}
-
+		public void callCompletion()
+		{
+			PlayerPrefs.SetInt("Guessed", 0);
+			info_message.Disable_Message();
+			CompleteLevel(current_level);
+		}
 		/// <summary>
 		/// Completes the given level
 		/// </summary>
@@ -1035,11 +1232,23 @@ namespace WordConnect
 		{
 			Debug.LogFormat("[GameController] Level {0} complete", level.levelData.GameLevelNumber);
 
-			bool	wasLevelCompleted	= level.levelData.GameLevelNumber <= LastCompletedLevelNumber;
-			int		numExtraWordsFound	= level.levelSaveData.extraWords;
+			bool wasLevelCompleted = level.levelData.GameLevelNumber <= LastCompletedLevelNumber;
+			int numExtraWordsFound = level.levelSaveData.extraWords;
 
-			// Set the last completed level number, make sure it's the max if the player replayed a level
-			LastCompletedLevelNumber = Mathf.Max(LastCompletedLevelNumber, level.levelData.GameLevelNumber);
+
+            ///Changes....
+            ///
+            if (LastCompletedLevelNumber == 1 && PlayerPrefs.GetInt("Tutorial") == 2) 
+            {
+                tutorial_controller.Shuffle_Hint_TutorialPlay();
+            }
+            ///
+
+
+
+
+            // Set the last completed level number, make sure it's the max if the player replayed a level
+            LastCompletedLevelNumber = Mathf.Max(LastCompletedLevelNumber, level.levelData.GameLevelNumber);
 
 			// Remove the level save data since it's no longer needed (A new one will be created if the level is re-played)
 			levelSaveDatas.Remove(level.levelData.Id);
@@ -1049,14 +1258,14 @@ namespace WordConnect
 			int gamePointsAwarded = 0;
 
 			// Need to animate the number of coins from/to if the player completed a category
-			int categoryCoinsAwarded	= 0;
-			int categoryCoinsAmountFrom	= 0;
-			int categoryCoinsAmountTo	= 0;
+			int categoryCoinsAwarded = 0;
+			int categoryCoinsAmountFrom = 0;
+			int categoryCoinsAmountTo = 0;
 
 			// Need to animate the number of coins from/to if the player found extra words
-			int extraWordsCoinsAwarded		= 0;
-			int extraWordsCoinsAmountFrom	= 0;
-			int extraWordsCoinsAmountTo		= 0;
+			int extraWordsCoinsAwarded = 0;
+			int extraWordsCoinsAmountFrom = 0;
+			int extraWordsCoinsAmountTo = 0;
 
 			// Check if the level has not already been completed
 			if (!wasLevelCompleted)
@@ -1071,8 +1280,8 @@ namespace WordConnect
 				if (IsCategoryCompleted(level.categoryInfo))
 				{
 					// Get the number of coins to award and the current amount of coins
-					categoryCoinsAwarded	= level.categoryInfo.coinsAwarded;
-					categoryCoinsAmountFrom	= Coins;
+					categoryCoinsAwarded = level.categoryInfo.coinsAwarded;
+					categoryCoinsAmountFrom = Coins;
 
 					// Give the coins right away but don't update the text. This makes it so it the app exits the player has been given the coins
 					// but we don't want to update teh text until the animation happens on the complete popup
@@ -1086,8 +1295,8 @@ namespace WordConnect
 				if (numExtraWordsFound > 0)
 				{
 					// Get the number of coins to award and the current amount of coins
-					extraWordsCoinsAwarded		= numExtraWordsFound;
-					extraWordsCoinsAmountFrom	= Coins;
+					extraWordsCoinsAwarded = numExtraWordsFound;
+					extraWordsCoinsAmountFrom = Coins;
 
 					// Give the coins right away but don't update the text. This makes it so it the app exits the player has been given the coins
 					// but we don't want to update teh text until the animation happens on the complete popup
@@ -1124,7 +1333,7 @@ namespace WordConnect
 		private IEnumerator ShowLevelCompletePopup(object[] popupInData)
 		{
 			// Wait for the word that was just found to show on the board before showing the complete popup
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(1f);
 
 			PopupManager.Instance.Show("level_complete", popupInData, OnLevelCompletePopupClosed);
 		}
@@ -1135,8 +1344,8 @@ namespace WordConnect
 		private int CalculateGamePointsAwardedForLevel(ActiveLevel level)
 		{
 			// Game points are calculated by multiplying the number of letters level by the sqrt of the level number
-			int numberOfLetters		= level.levelData.Letters.Length;
-			int sqrtOfLevelNumber	= Mathf.RoundToInt(Mathf.Sqrt(level.levelData.GameLevelNumber));
+			int numberOfLetters = level.levelData.Letters.Length;
+			int sqrtOfLevelNumber = Mathf.RoundToInt(Mathf.Sqrt(level.levelData.GameLevelNumber));
 
 			return numberOfLetters * sqrtOfLevelNumber;
 		}
@@ -1194,9 +1403,9 @@ namespace WordConnect
 		private void PlayNextLevel(ActiveLevel level)
 		{
 			// Get the next pack, category, and level index to play
-			PackInfo		packInfo;
-			CategoryInfo	categoryInfo;
-			int				levelIndex;
+			PackInfo packInfo;
+			CategoryInfo categoryInfo;
+			int levelIndex;
 
 			if (!GetNextLevel(level, out packInfo, out categoryInfo, out levelIndex))
 			{
@@ -1217,11 +1426,11 @@ namespace WordConnect
 		/// </summary>
 		private bool GetNextLevel(ActiveLevel level, out PackInfo packInfo, out CategoryInfo categoryInfo, out int levelIndex)
 		{
-			packInfo		= level.packInfo;
-			categoryInfo	= level.categoryInfo;
+			packInfo = level.packInfo;
+			categoryInfo = level.categoryInfo;
 
-			int packIndex		= packInfos.IndexOf(packInfo);
-			int categoryIndex	= packInfo.categoryInfos.IndexOf(categoryInfo);
+			int packIndex = packInfos.IndexOf(packInfo);
+			int categoryIndex = packInfo.categoryInfos.IndexOf(categoryInfo);
 
 			// The next levels index is the given levels category level number since that number starts at 1
 			levelIndex = level.levelData.CategoryLevelNumber;
@@ -1250,8 +1459,8 @@ namespace WordConnect
 			}
 
 			// Re-assign the pack and category info incase they changed
-			packInfo		= packInfos[packIndex];
-			categoryInfo	= packInfo.categoryInfos[categoryIndex];
+			packInfo = packInfos[packIndex];
+			categoryInfo = packInfo.categoryInfos[categoryIndex];
 
 			return true;
 		}
@@ -1275,8 +1484,8 @@ namespace WordConnect
 				if (!isLetterShown)
 				{
 					// Get any WordData that this cell belongs to
-					int			letterIndex	= 0;
-					WordData	wordData	= CurrentActiveLevel.levelData.GetLevelWordData(row, col, out letterIndex);
+					int letterIndex = 0;
+					WordData wordData = CurrentActiveLevel.levelData.GetLevelWordData(row, col, out letterIndex);
 
 					// Show the letter on the grid
 					ShowLetterForTargetHint(wordData, letterIndex);
@@ -1290,7 +1499,7 @@ namespace WordConnect
 
 				// Check if the word has not been found yet and the hint for the letter has not been shown yet
 				if (!CurrentActiveLevel.levelSaveData.foundWords.Contains(wordData.Word) &&
-				    !CurrentActiveLevel.levelSaveData.hintIndicesUsed[wordData.Word][col])
+					!CurrentActiveLevel.levelSaveData.hintIndicesUsed[wordData.Word][col])
 				{
 					ShowLetterForTargetHint(wordData, col);
 				}
@@ -1337,13 +1546,13 @@ namespace WordConnect
 
 			foreach (KeyValuePair<string, LevelSaveData> pair in levelSaveDatas)
 			{
-				string			levelId			= pair.Key;
-				LevelSaveData	levelSaveData	= pair.Value;
+				string levelId = pair.Key;
+				LevelSaveData levelSaveData = pair.Value;
 
 				Dictionary<string, object> levelJson = new Dictionary<string, object>();
 
-				levelJson["id"]		= levelId;
-				levelJson["data"]	= levelSaveData.Save();
+				levelJson["id"] = levelId;
+				levelJson["data"] = levelSaveData.Save();
 
 				levelJsons.Add(levelJson);
 			}
@@ -1351,12 +1560,12 @@ namespace WordConnect
 			// Create the main save data json object
 			Dictionary<string, object> json = new Dictionary<string, object>();
 
-			json["version"]						= SaveVersion;
-			json["levels"]						= levelJsons;
-			json["coins"]						= Coins;
-			json["game_points"]					= GamePoints;
-			json["num_levels_till_ad_shown"]	= NumLevelsTillAdShows;
-			json["last_completed_level_number"]	= LastCompletedLevelNumber;
+			json["version"] = SaveVersion;
+			json["levels"] = levelJsons;
+			json["coins"] = Coins;
+			json["game_points"] = GamePoints;
+			json["num_levels_till_ad_shown"] = NumLevelsTillAdShows;
+			json["last_completed_level_number"] = LastCompletedLevelNumber;
 
 			return json;
 		}
@@ -1398,10 +1607,10 @@ namespace WordConnect
 
 		private void ParseSaveData(JSONNode json)
 		{
-			GamePoints					= json["game_points"].AsInt;
-			NumLevelsTillAdShows		= json["num_levels_till_ad_shown"].AsInt;
-			Coins						= json["coins"].AsInt;
-			LastCompletedLevelNumber	= json["last_completed_level_number"].AsInt;
+			GamePoints = json["game_points"].AsInt;
+			NumLevelsTillAdShows = json["num_levels_till_ad_shown"].AsInt;
+			Coins = json["coins"].AsInt;
+			LastCompletedLevelNumber = json["last_completed_level_number"].AsInt;
 
 			// Check if the save file verion has changed
 			bool saveVersionChanged = (SaveVersion != json["version"].AsInt);
@@ -1410,8 +1619,8 @@ namespace WordConnect
 			// Load the level save data
 			foreach (JSONNode levelJson in json["levels"].AsArray)
 			{
-				string			levelId			= levelJson["id"].Value;
-				LevelSaveData	levelSaveData	= new LevelSaveData(levelJson["data"]);
+				string levelId = levelJson["id"].Value;
+				LevelSaveData levelSaveData = new LevelSaveData(levelJson["data"]);
 
 				// If the save version has changed we need to check a few things.
 				if (saveVersionChanged)
@@ -1496,9 +1705,9 @@ namespace WordConnect
 				}
 			}
 
-			packInfo		= null;
-			categoryInfo	= null;
-			levelData		= null;
+			packInfo = null;
+			categoryInfo = null;
+			levelData = null;
 
 			return false;
 		}

@@ -72,6 +72,7 @@ namespace WordConnect
 			// Hide the coin if the state is now found of hint
 			if (HasCoin && (state == State.Found || state == State.Hint))
 			{
+				Debug.Log(HasCoin && (state == State.Found || state == State.Hint));
 				coinObject.SetActive(false);
 			}
 		}

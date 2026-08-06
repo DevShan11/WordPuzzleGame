@@ -103,8 +103,9 @@ namespace WordConnect
 			#if BBG_MT_ADS
 			MobileAdsManager.Instance.OnRewardAdLoaded -= OnRewardAdLoaded;
 			#endif
+			// changes
 
-			gameObject.SetActive(false);
+			//gameObject.SetActive(false);
 		}
 
 		#endregion

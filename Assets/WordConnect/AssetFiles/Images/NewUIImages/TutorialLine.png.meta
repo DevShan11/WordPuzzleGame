@@ -1,0 +1,652 @@
+fileFormatVersion: 2
+guid: ff8ba1135c47bf649882ea640aba9f2f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 877508649681472933
+    second: TutorialLine_0
+  - first:
+      213: 5203081857534572062
+    second: TutorialLine_1
+  - first:
+      213: 759002238630341654
+    second: TutorialLine_2
+  - first:
+      213: 7685984295744618459
+    second: TutorialLine_3
+  - first:
+      213: 8755368441707100423
+    second: TutorialLine_4
+  - first:
+      213: -5109578329807730397
+    second: TutorialLine_5
+  - first:
+      213: 2730725853573567089
+    second: TutorialLine_6
+  - first:
+      213: 5560150867030006512
+    second: TutorialLine_7
+  - first:
+      213: 1215505730060600560
+    second: TutorialLine_8
+  - first:
+      213: -4071668665779488499
+    second: TutorialLine_9
+  - first:
+      213: -367975911187785698
+    second: TutorialLine_10
+  - first:
+      213: 6665843153440131382
+    second: TutorialLine_11
+  - first:
+      213: 7936215113537923427
+    second: TutorialLine_12
+  - first:
+      213: 3444170562133330015
+    second: TutorialLine_13
+  - first:
+      213: 448408158241906541
+    second: TutorialLine_14
+  - first:
+      213: -8191762011922862467
+    second: TutorialLine_15
+  - first:
+      213: -3535741900059884086
+    second: TutorialLine_16
+  - first:
+      213: -4701462441598799149
+    second: TutorialLine_17
+  - first:
+      213: 1292307365735017209
+    second: TutorialLine_18
+  - first:
+      213: 4773786038753886031
+    second: TutorialLine_19
+  - first:
+      213: 1290410294932367921
+    second: TutorialLine_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TutorialLine_0
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 267
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5adc897b7798d2c00800000000000000
+      internalID: 877508649681472933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_1
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 284
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e16b0afd16f053840800000000000000
+      internalID: 5203081857534572062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_2
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 231
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61ca941c384888a00800000000000000
+      internalID: 759002238630341654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_3
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 249
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdfb611bef91aaa60800000000000000
+      internalID: 7685984295744618459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_4
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 195
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 709fd95b531518970800000000000000
+      internalID: 8755368441707100423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_5
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 213
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 329c6cba4912719b0800000000000000
+      internalID: -5109578329807730397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_6
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 159
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1725a3122bc75e520800000000000000
+      internalID: 2730725853573567089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_7
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 177
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fa57ee21cf992d40800000000000000
+      internalID: 5560150867030006512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_8
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 124
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f4c6be75085ed010800000000000000
+      internalID: 1215505730060600560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_9
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 141
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d09ff1dcbe68e77c0800000000000000
+      internalID: -4071668665779488499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_10
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 104
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1850cfbbdfa4eaf0800000000000000
+      internalID: -367975911187785698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_11
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 105
+        width: 22
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 639c449e705d18c50800000000000000
+      internalID: 6665843153440131382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_12
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 105
+        width: 19
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 369a38f0999132e60800000000000000
+      internalID: 7936215113537923427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_13
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 105
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5880d5d0e62ccf20800000000000000
+      internalID: 3444170562133330015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_14
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 105
+        width: 22
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6f556a18d0193600800000000000000
+      internalID: 448408158241906541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_15
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 105
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7e6cca1ad3015e80800000000000000
+      internalID: -8191762011922862467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_16
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 105
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac5477d99758eeec0800000000000000
+      internalID: -3535741900059884086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_17
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 105
+        width: 19
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d2b9ab91dc01ceb0800000000000000
+      internalID: -4701462441598799149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_18
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 105
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9faa143c3b23fe110800000000000000
+      internalID: 1292307365735017209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_19
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 105
+        width: 19
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4ff4a11c15ef3240800000000000000
+      internalID: 4773786038753886031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TutorialLine_20
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 105
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13a63fb835578e110800000000000000
+      internalID: 1290410294932367921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      TutorialLine_0: 877508649681472933
+      TutorialLine_1: 5203081857534572062
+      TutorialLine_10: -367975911187785698
+      TutorialLine_11: 6665843153440131382
+      TutorialLine_12: 7936215113537923427
+      TutorialLine_13: 3444170562133330015
+      TutorialLine_14: 448408158241906541
+      TutorialLine_15: -8191762011922862467
+      TutorialLine_16: -3535741900059884086
+      TutorialLine_17: -4701462441598799149
+      TutorialLine_18: 1292307365735017209
+      TutorialLine_19: 4773786038753886031
+      TutorialLine_2: 759002238630341654
+      TutorialLine_20: 1290410294932367921
+      TutorialLine_3: 7685984295744618459
+      TutorialLine_4: 8755368441707100423
+      TutorialLine_5: -5109578329807730397
+      TutorialLine_6: 2730725853573567089
+      TutorialLine_7: 5560150867030006512
+      TutorialLine_8: 1215505730060600560
+      TutorialLine_9: -4071668665779488499
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

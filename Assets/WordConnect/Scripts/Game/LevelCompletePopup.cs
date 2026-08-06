@@ -7,6 +7,9 @@ namespace WordConnect
 {
 	public class LevelCompletePopup : BBG.Popup
 	{
+		public TutorialController tutorialController;
+
+        int i = 0;
 		#region Inspector Variables
 
 		[SerializeField] private Image			backgroundImage			= null;
@@ -25,7 +28,7 @@ namespace WordConnect
 
 		#region Member Variables
 
-		public const string PlayNextAction	= "play_next";
+		public const string PlayNextAction	= "   play_next";
 		public const string BackAction		= "back";
 
 		private IEnumerator animationEnumerator;
@@ -104,17 +107,55 @@ namespace WordConnect
 
 		public void OnPlayNextClicked()
 		{
-			if (animationEnumerator != null)
-			{
-				StopCoroutine(animationEnumerator);
+			//Customize
+			/*if (i < 1)
+			{*/
+				i++;
+				if (animationEnumerator != null)
+				{
+					StopCoroutine(animationEnumerator);
 
-				animationEnumerator = null;
-			}
+					animationEnumerator = null;
+				}
 
-			CoinController.Instance.SetCoinsText(GameController.Instance.Coins);
+				CoinController.Instance.SetCoinsText(GameController.Instance.Coins);
 
-			Hide(false, new object[] { PlayNextAction });
-		}
+				Hide(false, new object[] { PlayNextAction });
+            /*}*/
+            // Changes
+            if (GameController.Instance.LastCompletedLevelNumber == 1 && PlayerPrefs.GetInt("Tutorial") == 2)
+            {
+                tutorialController.Shuffle_Hint_TutorialPlay();
+            }
+
+            if (GameController.Instance.LastCompletedLevelNumber == 2 && PlayerPrefs.GetInt("Tutorial") == 3)
+            {
+                tutorialController.AdrewardButton();
+            }
+
+            if (GameController.Instance.LastCompletedLevelNumber == 4 && PlayerPrefs.GetInt("Tutorial") == 4)
+            {
+                tutorialController.ExtraWordTutorialPlay();
+
+            }
+
+            if (GameController.Instance.LastCompletedLevelNumber == 7 && PlayerPrefs.GetInt("Tutorial") == 5)
+            {
+
+                tutorialController.MultiHintButton();
+
+            }
+
+            if (GameController.Instance.LastCompletedLevelNumber == 14)
+            {
+
+				// DaillySpin Popup
+				UIController.Instance.DailySpinPopup();
+              
+            }
+
+
+        }
 
 		public void OnBackClicked()
 		{

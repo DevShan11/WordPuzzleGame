@@ -9,8 +9,14 @@ namespace WordConnect
 {
 	public class UIController : SingletonComponent<UIController>
 	{
-		#region Inspector Variables
-
+        public TutorialController tutorialController;
+		public GameObject settingBtn;
+		public GameObject backBtn;
+		public GameObject giftPopUp;
+        public GameObject daillySpinPopUp;
+        public GameObject spinButton;
+        #region Inspector Variables
+        public GameObject RateUsPanel;
 		[SerializeField] private Text			gamePointsText			= null;
 		[SerializeField] private GameObject		playButton				= null;
 		[SerializeField] private Text			playButtonText			= null;
@@ -59,6 +65,12 @@ namespace WordConnect
 
 		private void Start()
 		{
+			PlayerPrefs.GetInt("GiftPopUp", 1);
+            if (PlayerPrefs.GetInt("Israted", 0) == 0)
+            {
+				
+				RateUsPanel.SetActive(true);
+            }
 			packItemUIPool		= new ObjectPool(packItemUIPrefab.gameObject, 1, ObjectPool.CreatePoolContainer(transform, "pack_item_pool_container"));
 			categoryItemUIPool	= new ObjectPool(categoryItemUI.gameObject, 1, ObjectPool.CreatePoolContainer(transform, "category_item_pool_container"));
 			levelItemUIPool		= new ObjectPool(levelItemUIPrefab.gameObject, 1, ObjectPool.CreatePoolContainer(transform, "level_item_pool_container"));
@@ -83,6 +95,11 @@ namespace WordConnect
 
 			ScreenManager.Instance.OnShowingScreen		+= OnScreenShowing;
 			ScreenManager.Instance.OnSwitchingScreens	+= OnSwitchingScreens;
+
+			if(GameController.Instance.LastCompletedLevelNumber >= 14)
+			{
+				spinButton.SetActive(true);
+			}
 		}
 
 		#endregion
@@ -94,7 +111,24 @@ namespace WordConnect
 			if (!GameController.Instance.IsLastLevelInGameCompleted())
 			{
 				// Set the main screens play button text
-				playButtonText.text = string.Format("PLAY LEVEL {0}", GameController.Instance.LastCompletedLevelNumber + 1);
+				playButtonText.text = string.Format("LEVEL {0}", GameController.Instance.LastCompletedLevelNumber + 1);
+				//Customize...
+				if (GameController.Instance.LastCompletedLevelNumber ==4)
+				{
+					if (PlayerPrefs.GetInt("GiftPopUp") ==0)
+					{
+						giftPopUp.SetActive(true);
+						PlayerPrefs.SetInt("GiftPopUp",1);
+						PlayerPrefs.Save();
+
+                    }
+				}
+			/*	if (GameController.Instance.LastCompletedLevelNumber == 13) {
+                GameController.Instance.tutorial_controller.Shuffle_Hint_TutorialPlay();
+				}*/
+
+                Debug.Log("Last Completed Level = "+ GameController.Instance.LastCompletedLevelNumber);
+
 			}
 
 			UpdatePackListItems();
@@ -121,18 +155,64 @@ namespace WordConnect
 		/// </summary>
 		public void OnMainScreenPlayClicked()
 		{
+			
+			
 			GameController.Instance.StartLevel(GameController.Instance.LastCompletedLevelNumber + 1);
 
 			ScreenManager.Instance.Show("game");
-		}
+            HideSettingButtons();
 
-		public void UpdatePlayerSelectingHint()
+            ///Changes.....Tutorial
+            if (PlayerPrefs.GetInt("Tutorial") == 0)
+			{
+				tutorialController.Won_Tutorial();
+			}
+
+            /*if (GameController.Instance. LastCompletedLevelNumber == 1 && PlayerPrefs.GetInt("Tutorial") == 2)
+            {
+                tutorialController.Shuffle_Hint_TutorialPlay();
+            }
+
+            if (GameController.Instance.LastCompletedLevelNumber == 2 && PlayerPrefs.GetInt("Tutorial") == 3)
+            {
+				tutorialController.AdrewardButton();
+            }
+
+            if (GameController.Instance. LastCompletedLevelNumber == 4 && PlayerPrefs.GetInt("Tutorial") == 4)
+            {
+				tutorialController.ExtraWordTutorialPlay();
+
+            }*/
+
+
+            
+        }
+
+        public void ShowSettingButtons()
+		{
+            settingBtn.SetActive(true);
+            backBtn.SetActive(false);
+        }
+        public void HideSettingButtons()
+        {
+            settingBtn.SetActive(false);
+            backBtn.SetActive(true);
+        }
+
+        public void UpdatePlayerSelectingHint()
 		{
 			bool isSelecting = GameController.Instance.PlayerSelectingHint;
 
 			hintSelectIcon.color = isSelecting ? hintSelectIconActiveColor : hintSelectIconNormalColor;
 
 			hintSelectOverlay.SetActive(isSelecting);
+		}
+
+
+		public void DailySpinPopup()
+		{
+			daillySpinPopUp.SetActive(true);
+			spinButton.SetActive(true);
 		}
 
 		#endregion
@@ -324,4 +404,6 @@ namespace WordConnect
 
 		#endregion
 	}
+
+	
 }

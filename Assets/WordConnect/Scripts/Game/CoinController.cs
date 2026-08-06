@@ -11,8 +11,9 @@ namespace WordConnect
 	{
 		#region Inspector Variables
 
-		[SerializeField] private Text			coinsText;
-		[SerializeField] private RectTransform	animateTo;
+		[SerializeField] private Text coinsText;
+        [SerializeField] private Text shopCoinsText;
+        [SerializeField] private RectTransform	animateTo;
 		[SerializeField] private RectTransform	animationContainer;
 		[SerializeField] private RectTransform	coinPrefab;
 		[SerializeField] private float			animationDuration;
@@ -43,6 +44,7 @@ namespace WordConnect
 		public void SetCoinsText(int coins)
 		{
 			coinsText.text = coins.ToString();
+			shopCoinsText.text = coins.ToString();
 		}
 
 		/// <summary>
